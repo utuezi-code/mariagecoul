@@ -92,12 +92,12 @@ Prérequis : un compte [GitHub](https://github.com) (le code y est déjà) et un
 1. Dans le projet Vercel : onglet **Storage** → « Create Database » → **Neon** (Serverless Postgres) → « Continue ».
 2. Région : **Frankfurt (eu-central-1)**, la même que les fonctions du site (`vercel.json` → `fra1`, la plus proche d'Abidjan). Plan gratuit.
 3. Reliez la base au projet pour les environnements **Production** et **Preview**.
-4. Vercel ajoute automatiquement `DATABASE_URL` et `DATABASE_URL_UNPOOLED`.
+4. Vercel ajoute automatiquement `DATABASE_URL` (et selon les cas `DATABASE_URL_UNPOOLED` ou `POSTGRES_URL_NON_POOLING`). Seule `DATABASE_URL` est indispensable : le script de build déduit l'URL directe si elle manque.
 
 ### Étape 3 — Déployer
 
 1. Onglet **Deployments** → sur le dernier déploiement, menu « ⋯ » → **Redeploy**.
-2. Le build exécute `prisma generate && prisma migrate deploy && next build` : la table des RSVP est créée automatiquement.
+2. Le build (`scripts/build.mjs`) exécute `prisma generate`, `prisma migrate deploy` puis `next build` : la table des RSVP est créée automatiquement.
 3. Une fois terminé, Vercel affiche l'adresse du site (ex. `https://mariagecoul.vercel.app`).
 4. Renseignez cette adresse dans `NEXT_PUBLIC_SITE_URL` (Settings → Environment Variables), puis redéployez une dernière fois.
 
