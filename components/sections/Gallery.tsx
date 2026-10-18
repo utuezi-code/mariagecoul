@@ -4,15 +4,17 @@ import Image from "next/image";
 import { AnimatePresence, m } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { site } from "@/content/site";
+import { createPortal } from "react-dom";
+import { site, type SiteImage } from "@/content/site";
 import { GeometricPattern } from "@/components/ui/GeometricPattern";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
-export function Gallery() {
-  const images = site.media.gallery;
+export function Gallery({ images }: { images: SiteImage[] }) {
   const g = site.gallery;
   const [index, setIndex] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const close = useCallback(() => setIndex(null), []);
   const go = useCallback((d: number) => setIndex((i) => (i === null ? i : (i + d + images.length) % images.length)), [images.length]);
@@ -57,13 +59,16 @@ export function Gallery() {
         </div>
       </div>
 
+      {/* Lightbox rendue dans <body> : au-dessus du menu, hors du contexte d'empilement de la section */}
+      {mounted &&
+        createPortal(
       <AnimatePresence>
         {index !== null && (
           <m.div
             role="dialog"
             aria-modal="true"
             aria-label={images[index].alt}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/95 p-4"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/95 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -87,7 +92,9 @@ export function Gallery() {
             )}
           </m.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+          document.body,
+        )}
     </section>
   );
 }

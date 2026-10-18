@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import { site, type SiteImage } from "@/content/site";
 import type { Phase } from "@/lib/date";
 import { fr } from "@/lib/typo";
 import { Countdown } from "@/components/ui/Countdown";
@@ -7,8 +7,8 @@ import { Monogram } from "@/components/ui/Monogram";
 import { OgiveArch } from "@/components/ui/OgiveArch";
 import { Reveal, RevealLines } from "@/components/ui/Reveal";
 
-export function Hero({ phase, rsvpOpen }: { phase: Phase; rsvpOpen: boolean }) {
-  const { hero, identity, media } = site;
+export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boolean; image: SiteImage | null }) {
+  const { hero, identity } = site;
   const after = phase === "apres";
 
   return (
@@ -42,7 +42,7 @@ export function Hero({ phase, rsvpOpen }: { phase: Phase; rsvpOpen: boolean }) {
         </figure>
 
         {/* Arche + noms */}
-        <OgiveArch image={media.hero} priority className="mt-10 w-full max-w-[22rem] md:mt-14 md:max-w-[38rem]">
+        <OgiveArch image={image} priority className="mt-10 w-full max-w-[22rem] md:mt-14 md:max-w-[38rem]">
           <div className="flex flex-col items-center px-6 pb-12 pt-10 md:px-10 md:pb-16 md:pt-14">
             <Monogram play="mount" delay={0.2} className="h-20 w-20 md:h-24 md:w-24" />
 

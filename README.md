@@ -116,6 +116,8 @@ Prérequis : un compte [GitHub](https://github.com) (le code y est déjà) et un
 
 Le site est complet sans photo. Pour en ajouter, **aucun composant n'est à modifier**.
 
+Pour voir le rendu final avant d'avoir les photos : `/?preview=demo`.
+
 ### Avec l'outil d'optimisation (recommandé)
 
 Les photos brutes sont trop lourdes pour des connexions mobiles. Le script les redimensionne (2 400 px max), les convertit en WebP et AVIF (< 300 Ko) et génère les aperçus flous.
@@ -162,7 +164,7 @@ Le dossier `photos-brutes/` n'est jamais envoyé sur GitHub.
 Dans `content/site.ts`, chaque section a un interrupteur `enabled`. Elle n'apparaît (page **et** menu) que si `enabled: true` **et** que son contenu est rempli :
 
 - **Notre histoire** : `story.enabled`, `story.paragraphs` (liste de paragraphes) et `media.story`
-- **Galerie** : `gallery.enabled` et au moins une photo dans `media.gallery`
+- **Galerie** : `gallery.enabled` et au moins une photo dans `media.gallery` (pensez à passer `gallery.enabled` à `true` en ajoutant les photos)
 - **Liste de cadeaux** : `gifts.enabled` et `gifts.items` (`{ title, description?, url?, linkLabel? }`)
 - **FAQ** : `faq.enabled` et `faq.items` (`{ question, answer }`)
 
@@ -195,6 +197,7 @@ Pour prévisualiser :
 - `/?preview=jourj`
 - `/?preview=apres`
 - `/?preview=clos` (avant le mariage, mais confirmations closes)
+- `/?preview=demo` : rendu **avec photos** (hero et galerie) grâce à des visuels de démonstration or. Ces visuels (`public/images/demo/`, `content/demo.ts`) ne servent qu'à cet aperçu : le site public n'affiche que les photos déclarées dans `site.media`.
 
 La page est mise en cache et régénérée chaque minute : le changement d'état est automatique, sans redéploiement.
 

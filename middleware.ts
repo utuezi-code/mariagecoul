@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-const PREVIEWS = new Set(["avant", "jourj", "apres", "clos"]);
+const PREVIEWS = new Set(["avant", "jourj", "apres", "clos", "demo"]);
 
 /** `/?preview=jourj` → page statique `/apercu/jourj` (l'URL affichée ne change pas). */
 export function middleware(req: NextRequest) {
