@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #faf8f3;
+  --color-white: #ffffff;
+  --color-ink: #0b0b0b;
+  --color-graphite: #2a2a2a;
+  --color-mist: #8a8578;
+  /* mist assombri pour le texte courant sur fond clair (contraste AA) */
+  --color-mist-deep: #6b675d;
+  --color-gold: #c9a24b;
+  --color-gold-light: #e6cb8a;
+  --color-gold-deep: #9a7a32;
+  /* or encore plus profond pour les petits textes sur fond clair (contraste AA ≥ 4,5:1) */
+  --color-gold-ink: #7a5f24;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-arabic: var(--font-amiri), "Amiri", serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-graphite);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-gold-light);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  /* Petites capitales espacées (surtitres, menu) */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+  }
+  @media (min-width: 768px) {
+    .eyebrow {
+      font-size: 0.75rem;
+    }
+  }
+
+  /* Or premium en dégradé, avec reflet lent */
+  .text-gold-gradient {
+    background-image: linear-gradient(100deg, #9a7a32 0%, #e6cb8a 30%, #c9a24b 55%, #9a7a32 80%, #e6cb8a 100%);
+    background-size: 220% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gold-shimmer 6s ease-in-out infinite alternate;
+  }
+
+  /* Grain « papier de luxe » sur les sections noires */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Halo doré */
+  .halo {
+    background: radial-gradient(closest-side, rgba(201, 162, 75, 0.18), rgba(201, 162, 75, 0.05) 55%, transparent 100%);
+  }
+
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.85rem 2rem;
+    background: linear-gradient(100deg, #c9a24b, #e6cb8a 50%, #c9a24b);
+    background-size: 200% 100%;
+    color: var(--color-ink);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition:
+      background-position 0.6s var(--ease-luxe),
+      transform 0.3s var(--ease-luxe),
+      box-shadow 0.3s var(--ease-luxe);
+  }
+  .btn-gold:hover {
+    background-position: 100% 0;
+    box-shadow: 0 10px 30px -12px rgba(201, 162, 75, 0.6);
+  }
+  .btn-gold:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.7rem 1.25rem;
+    border: 1px solid currentColor;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition:
+      background-color 0.3s var(--ease-luxe),
+      color 0.3s var(--ease-luxe),
+      border-color 0.3s var(--ease-luxe);
+  }
+
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(42, 42, 42, 0.25);
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    color: var(--color-ink);
+    border-radius: 0;
+    transition: border-color 0.3s var(--ease-luxe);
+  }
+  .field:focus {
+    outline: none;
+    border-bottom-color: var(--color-gold-deep);
+    box-shadow: 0 1px 0 0 var(--color-gold-deep);
+  }
+  .field[aria-invalid="true"] {
+    border-bottom-color: #a33a2a;
+  }
+}
+
+@keyframes gold-shimmer {
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes halo-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 162, 75, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(201, 162, 75, 0);
+  }
+}
+.animate-halo {
+  animation: halo-pulse 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gold-gradient,
+  .animate-halo {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Apparitions (components/ui/Reveal.tsx)                              */
+/* ------------------------------------------------------------------ */
+.rv {
+  opacity: 0;
+  transform: translate3d(0, var(--rv-y, 24px), 0);
+  transition:
+    opacity 0.8s var(--ease-luxe) var(--rv-d, 0s),
+    transform 0.8s var(--ease-luxe) var(--rv-d, 0s);
+}
+.rv[data-in] {
+  opacity: 1;
+  transform: none;
+}
+.rv.rv-mount {
+  animation: rv-fade 0.8s var(--ease-luxe) var(--rv-d, 0s) both;
+}
+
+.rv-line {
+  transform: translate3d(0, 110%, 0);
+  transition: transform 0.8s var(--ease-luxe) calc(var(--rv-d, 0s) + var(--i, 0) * 0.12s);
+}
+.rv-lines[data-in] .rv-line {
+  transform: none;
+}
+.rv-lines.rv-mount .rv-line {
+  animation: rv-rise 0.8s var(--ease-luxe) calc(var(--rv-d, 0s) + var(--i, 0) * 0.12s) both;
+}
+
+.rv-word {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+  filter: blur(4px);
+  transition:
+    opacity 0.9s var(--ease-luxe),
+    transform 0.9s var(--ease-luxe),
+    filter 0.9s var(--ease-luxe);
+  transition-delay: calc(var(--rv-d, 0s) + var(--i, 0) * 0.07s);
+}
+.rv-words[data-in] .rv-word {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+.rv-words.rv-mount .rv-word {
+  animation: rv-word 0.9s var(--ease-luxe) calc(var(--rv-d, 0s) + var(--i, 0) * 0.05s) both;
+}
+
+/* « to » explicite : l'état de repos des classes est masqué */
+@keyframes rv-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--rv-y, 24px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rv-rise {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes rv-word {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Tracé des filets (monogramme, arche) : <path pathLength="1" class="draw"> */
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.draw-mount .draw,
+[data-in] .draw {
+  animation: draw 1.6s var(--ease-luxe) calc(var(--rv-d, 0s) + var(--draw-d, 0s)) forwards;
+}
+.draw-fade {
+  opacity: 0;
+}
+.draw-mount .draw-fade,
+[data-in] .draw-fade {
+  animation: rv-fade 0.9s var(--ease-luxe) calc(var(--rv-d, 0s) + 0.9s) forwards;
+  --rv-y: 6px;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv,
+  .rv-line,
+  .rv-word,
+  .draw-fade {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .draw {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+}
+
+/* Arche : un masque monte du bas vers la pointe */
+.arch-sweep {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: arch-sweep 2.2s var(--ease-luxe) 0.1s both;
+}
+@keyframes arch-sweep {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arch-sweep {
+    animation: none;
+  }
+}

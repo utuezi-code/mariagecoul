@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+  // Connexion directe (sans pooler) pour les migrations — fournie par l'intégration Neon de Vercel
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model Rsvp {
+  id         String   @id @default(cuid())
+  name       String
+  phone      String
+  attending  Boolean
+  guests     Int      @default(1)
+  // "ceremonie" | "reception" | "les-deux" (null si absent)
+  events     String?
+  message    String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}

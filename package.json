@@ -1,0 +1,34 @@
+{
+  "name": "mariage-cs-a2",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && prisma migrate deploy && next build",
+    "build:local": "prisma generate && next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.3",
+    "framer-motion": "12.43.0",
+    "lenis": "1.3.27",
+    "lucide-react": "1.59.0",
+    "next": "15.5.28",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.19.1",
+    "@types/react": "19.1.17",
+    "@types/react-dom": "19.1.11",
+    "prisma": "6.19.3",
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}
