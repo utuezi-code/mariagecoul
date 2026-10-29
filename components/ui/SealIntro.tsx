@@ -1,12 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
-import { fr } from "@/lib/typo";
-import { Monogram } from "./Monogram";
 
-/** Durée totale (doit correspondre à la chronologie de globals.css, section « Intro »). */
-const TOTAL_MS = 4400;
 
 // Bord ondulé de la cire : cercle de rayon 46 ± 3, 14 ondulations (viewBox 100×100)
 const SEAL_EDGE = (() => {
@@ -58,94 +54,68 @@ function WaxSeal() {
 }
 
 /**
- * Ouverture du site : un parchemin roulé, scellé à la cire. Le sceau se brise, le parchemin se
- * déroule et présente les mariés, puis s'efface sur le site. Animation 100 % CSS (elle joue dès
- * le premier affichage) ; le JavaScript gère seulement « Passer », le blocage du défilement et
- * le retrait du calque. Désactivée si prefers-reduced-motion.
+ * Ouverture du site : le site reste fermé par un parchemin roulé, scellé à la cire. L'invité
+ * touche le sceau : il se brise, et les deux rouleaux s'écartent vers le haut et le bas de l'écran
+ * pour dévoiler le site. Les animations du hero démarrent à ce moment-là.
+ * Sans JavaScript, le calque est masqué (<noscript> dans HomePage) pour ne jamais bloquer le site.
  */
 export function SealIntro() {
-  const [done, setDone] = useState(false);
-  const [leaving, setLeaving] = useState(false);
-  const start = useRef(0);
+  const [state, setState] = useState<"closed" | "opening" | "done">("closed");
+  const timers = useRef<number[]>([]);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setDone(true);
-      return;
-    }
-    start.current = performance.now();
     const root = document.documentElement;
     root.classList.add("intro-lock");
-    const t = setTimeout(() => setDone(true), TOTAL_MS);
+    const list = timers.current;
     return () => {
-      clearTimeout(t);
+      list.forEach(clearTimeout);
       root.classList.remove("intro-lock");
     };
   }, []);
 
-  useEffect(() => {
-    if (done) document.documentElement.classList.remove("intro-lock");
-  }, [done]);
+  const releaseHero = () =>
+    document.querySelectorAll("[data-intro-wait]").forEach((el) => el.removeAttribute("data-intro-wait"));
 
-  const skip = () => {
-    if (leaving) return;
-    // Le hero démarre ses animations juste après le fondu, au lieu d'attendre la fin prévue
-    const elapsed = (performance.now() - start.current) / 1000;
-    document.querySelectorAll<HTMLElement>("[data-intro-delay]").forEach((el) => {
-      el.style.setProperty("--intro", `${(elapsed + 0.35).toFixed(2)}s`);
-    });
-    setLeaving(true);
-    setTimeout(() => setDone(true), 450);
+  const finish = () => {
+    releaseHero();
+    document.documentElement.classList.remove("intro-lock");
+    setState("done");
   };
 
-  if (done) return null;
+  const open = () => {
+    if (state !== "closed") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return finish();
+    setState("opening");
+    timers.current.push(window.setTimeout(releaseHero, 650), window.setTimeout(finish, 1750));
+  };
 
-  const { identity, hero, intro } = site;
+  if (state === "done") return null;
+
+  const { intro } = site;
 
   return (
-    <div className={`intro ${leaving ? "intro-leaving" : ""}`} onClick={skip}>
-      <div className="intro-stage" aria-hidden="true">
-        {/* feuille de parchemin, révélée depuis le centre */}
-        <div className="intro-paper">
-          <div className="intro-content">
-            <Monogram className="mx-auto h-16 w-16 md:h-20 md:w-20" />
-            <p className="eyebrow mt-5 text-gold-ink">{fr(hero.eyebrow)}</p>
-            <p className="mt-2 font-display text-xl font-light italic text-graphite md:text-2xl">{hero.title}</p>
-            <p className="mt-4 font-display text-[2.6rem] font-light leading-[1.02] text-gold-gradient md:text-5xl">
-              {identity.groomFirstName}
-              <br />
-              <span className="italic">&amp;</span> {identity.brideFirstName}
-            </p>
-            <div className="intro-rule" />
-            <p className="font-display text-lg text-ink md:text-xl">{identity.dateLong}</p>
-          </div>
-        </div>
+    <div className={`intro ${state === "opening" ? "is-opening" : ""}`}>
+      <div className="intro-panel intro-panel-top" aria-hidden="true">
+        <div className="intro-roller" />
+      </div>
+      <div className="intro-panel intro-panel-bottom" aria-hidden="true">
+        <div className="intro-roller" />
+      </div>
 
-        {/* rouleaux */}
-        <div className="intro-roller intro-roller-top" />
-        <div className="intro-roller intro-roller-bottom" />
-
-        {/* ruban + sceau de cire, qui se brise en deux */}
-        <div className="intro-ribbon" />
-        <div className="intro-seal">
+      <div className="intro-center">
+        <div className="intro-ribbon" aria-hidden="true" />
+        <button type="button" className="intro-seal" onClick={open} aria-label={intro.openLabel} autoFocus>
           <span className="intro-seal-half intro-seal-left">
             <WaxSeal />
           </span>
           <span className="intro-seal-half intro-seal-right">
             <WaxSeal />
           </span>
-        </div>
+        </button>
+        <p className="intro-hint eyebrow text-gold-ink" aria-hidden="true">
+          {intro.hint}
+        </p>
       </div>
-
-      <button
-        type="button"
-        onClick={(e) => (e.stopPropagation(), skip())}
-        className="eyebrow absolute bottom-8 left-1/2 -translate-x-1/2 px-4 py-3 text-gold-ink"
-        aria-label={intro.skipLabel}
-        style={{ "--rv-d": "0s" } as CSSProperties}
-      >
-        {intro.skip}
-      </button>
     </div>
   );
 }

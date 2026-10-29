@@ -176,9 +176,9 @@ Après le mariage, la galerie remonte automatiquement juste sous le hero.
 
 ---
 
-### Animation d'ouverture
+### Ouverture par le sceau
 
-À chaque chargement, un parchemin roulé et scellé à la cire se déroule pour présenter les mariés (environ 4 secondes). Un bouton « Passer », ou un toucher n'importe où, permet de l'écourter. Elle est désactivée automatiquement pour les personnes qui ont réduit les animations sur leur téléphone. Pour la retirer : `intro.enabled: false` dans `content/site.ts`.
+À chaque chargement, le site est fermé par un parchemin roulé, scellé à la cire. L'invité touche le sceau (ou appuie sur Entrée) : le sceau se brise et les rouleaux s'écartent pour dévoiler le site. Sans JavaScript, le site s'affiche directement pour ne jamais bloquer personne. Pour retirer ce passage : `intro.enabled: false` dans `content/site.ts` (le texte « Touchez le sceau pour ouvrir » s'y modifie aussi).
 
 ---
 

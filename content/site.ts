@@ -93,11 +93,11 @@ export const site = {
     closeMenu: "Fermer le menu",
   },
 
-  /** Animation d'ouverture : parchemin scellé à la cire qui se déroule (à chaque chargement) */
+  /** Ouverture : le site reste fermé par un parchemin scellé ; l'invité brise le sceau pour entrer */
   intro: {
     enabled: true,
-    skip: "Passer",
-    skipLabel: "Passer l'animation d'ouverture",
+    hint: "Touchez le sceau pour ouvrir",
+    openLabel: "Briser le sceau et ouvrir l'invitation",
   },
 
   hero: {

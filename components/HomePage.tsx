@@ -45,10 +45,20 @@ export function HomePage({ state, media = site.media, demo = false }: { state: S
     <>
       <SmoothScroll />
       <RevealObserver />
-      {site.intro.enabled && <SealIntro />}
+      {site.intro.enabled && (
+        <>
+          <SealIntro />
+          {/* sans JavaScript, le sceau ne peut pas être brisé : on n'affiche pas le calque */}
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: "<style>.intro{display:none!important}[data-intro-wait] *{animation-play-state:running!important}</style>",
+            }}
+          />
+        </>
+      )}
       <Navbar links={links} />
-      {/* data-intro-delay : les animations d'entrée du hero attendent la fin de l'intro */}
-      <main {...(site.intro.enabled ? { "data-intro-delay": "" } : {})}>
+      {/* data-intro-wait : les animations d'entrée du hero attendent que le sceau soit brisé */}
+      <main {...(site.intro.enabled ? { "data-intro-wait": "" } : {})}>
         <Hero phase={phase} rsvpOpen={rsvpOpen} image={media.hero} />
         {galleryFirst && <Gallery images={media.gallery} />}
         {optional.story && <Story image={media.story} />}
