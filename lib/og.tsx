@@ -29,7 +29,7 @@ function octagon(cx: number, cy: number, r: number) {
   );
 }
 
-export const GOLD = "linear-gradient(100deg, #9A7A32 0%, #E6CB8A 35%, #C9A24B 60%, #9A7A32 100%)";
+export const GOLD = "linear-gradient(100deg, #7A5F24 0%, #B8913F 35%, #9A7A32 60%, #7A5F24 100%)";
 
 /** Monogramme pour next/og (texte HTML + octogone SVG). */
 export function OgMonogram({ size }: { size: number }) {
@@ -40,8 +40,8 @@ export function OgMonogram({ size }: { size: number }) {
         <defs>
           <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#9A7A32" />
-            <stop offset="0.4" stopColor="#E6CB8A" />
-            <stop offset="0.7" stopColor="#C9A24B" />
+            <stop offset="0.4" stopColor="#C9A24B" />
+            <stop offset="0.7" stopColor="#9A7A32" />
             <stop offset="1" stopColor="#9A7A32" />
           </linearGradient>
         </defs>
@@ -64,7 +64,7 @@ export function OgMonogram({ size }: { size: number }) {
           C&amp;S
         </span>
         {size >= 100 && (
-          <span style={{ fontFamily: "Cormorant", fontStyle: "italic", fontWeight: 300, fontSize: 34 * s, lineHeight: 1, color: "#E6CB8A", marginTop: -6 * s }}>
+          <span style={{ fontFamily: "Cormorant", fontStyle: "italic", fontWeight: 300, fontSize: 34 * s, lineHeight: 1, color: "#9A7A32", marginTop: -6 * s }}>
             .A²
           </span>
         )}

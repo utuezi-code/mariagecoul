@@ -14,7 +14,7 @@ const a = site.admin;
 function Login({ error }: { error: boolean }) {
   const configured = !!process.env.ADMIN_PASSWORD;
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-ink px-5">
+    <main className="flex min-h-dvh items-center justify-center bg-champagne px-5">
       <form action={login} className="w-full max-w-sm border border-gold/30 bg-ivory px-8 py-10 text-center">
         <Monogram className="mx-auto h-16 w-16" tone="light" />
         <h1 className="mt-6 font-display text-3xl text-ink">{a.loginTitle}</h1>
@@ -75,7 +75,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <h1 className="font-display text-3xl text-ink md:text-4xl">{a.title}</h1>
           </div>
           <div className="flex gap-3">
-            <a href="/api/admin/export" className="btn-outline text-ink hover:bg-ink hover:text-ivory">
+            <a href="/api/admin/export" className="btn-outline text-ink hover:border-gold-ink hover:bg-gold-ink hover:text-white">
               <Download className="h-4 w-4" strokeWidth={1.25} aria-hidden="true" />
               {a.export}
             </a>
@@ -111,7 +111,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
 
         <div className="mt-6 overflow-x-auto border border-ink/10 bg-white">
           <table className="w-full min-w-[56rem] text-left text-sm">
-            <thead className="bg-ink text-ivory">
+            <thead className="bg-gold-ink text-white">
               <tr>
                 {Object.values(a.columns).map((c) => (
                   <th key={c} scope="col" className="eyebrow px-4 py-3 !text-[0.6rem] !tracking-[0.2em]">

@@ -68,7 +68,7 @@ function ChoiceGroup({
             <label
               key={o.value}
               className={`cursor-pointer border px-5 py-3 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-gold ${
-                checked ? "border-ink bg-ink text-ivory" : "border-ink/20 bg-white text-graphite hover:border-gold-deep"
+                checked ? "border-gold-ink bg-gold-ink text-white" : "border-ink/20 bg-white text-graphite hover:border-gold-deep"
               }`}
             >
               <input
@@ -189,7 +189,7 @@ export function Rsvp({ open }: { open: boolean }) {
                   exit={{ opacity: 0, y: -12 }}
                   onSubmit={onSubmit}
                   noValidate
-                  className="mt-12 space-y-8 border border-gold/25 bg-white px-6 py-10 shadow-[0_30px_60px_-45px_rgba(11,11,11,0.35)] md:px-12 md:py-12"
+                  className="mt-12 space-y-8 border border-gold/25 bg-white px-6 py-10 shadow-[0_30px_60px_-45px_rgba(154,122,50,0.3)] md:px-12 md:py-12"
                 >
                   {/* Honeypot anti-spam : invisible pour les humains */}
                   <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
@@ -327,7 +327,7 @@ export function Rsvp({ open }: { open: boolean }) {
                     aria-label={`${rsvp.whatsappLabel} ${c.label}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-outline text-ink hover:bg-ink hover:text-ivory"
+                    className="btn-outline text-ink hover:border-gold-ink hover:bg-gold-ink hover:text-white"
                   >
                     <MessageCircle className="h-4 w-4" strokeWidth={1.25} aria-hidden="true" />
                     {c.label}

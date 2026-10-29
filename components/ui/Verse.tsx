@@ -10,13 +10,13 @@ export function Verse({ verse, tone = "dark", className = "" }: { verse: VerseT;
     <figure className={`mx-auto max-w-[40ch] text-center ${className}`}>
       <WordReveal
         text={verse.text}
-        className={`font-display text-xl font-light italic leading-relaxed md:text-2xl ${dark ? "text-ivory/90" : "text-graphite"}`}
+        className={`font-display text-xl font-light italic leading-relaxed md:text-2xl ${"text-graphite"}`}
       />
       <Reveal delay={0.4}>
         <GoldDivider tone={tone} className="my-5" />
         <figcaption>
-          <span className={`eyebrow block ${dark ? "text-gold" : "text-gold-ink"}`}>{verse.reference}</span>
-          <span className={`mt-2 block font-display text-base italic ${dark ? "text-ivory/60" : "text-mist-deep"}`}>
+          <span className={`eyebrow block ${"text-gold-ink"}`}>{verse.reference}</span>
+          <span className={`mt-2 block font-display text-base italic ${"text-mist-deep"}`}>
             {fr(verse.title)}
           </span>
         </figcaption>

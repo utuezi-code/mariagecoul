@@ -20,13 +20,13 @@ export default async function OgImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "radial-gradient(circle at 50% 50%, #1d1a12 0%, #0B0B0B 60%)",
-          color: "#FAF8F3",
+          background: "radial-gradient(circle at 50% 50%, #FFFFFF 0%, #FAF8F3 45%, #F4ECDB 100%)",
+          color: "#3A2E1A",
           position: "relative",
         }}
       >
         {/* motif d'étoiles à 8 branches */}
-        <svg width="1200" height="630" style={{ position: "absolute", top: 0, left: 0, opacity: 0.08 }}>
+        <svg width="1200" height="630" style={{ position: "absolute", top: 0, left: 0, opacity: 0.14 }}>
           {Array.from({ length: 8 }).flatMap((_, r) =>
             Array.from({ length: 15 }).map((__, c) => (
               <path key={`${r}-${c}`} d={STAR} transform={`translate(${c * 84 - 12} ${r * 84 - 20}) scale(1.05)`} fill="none" stroke="#C9A24B" strokeWidth="1" />
@@ -35,11 +35,11 @@ export default async function OgImage() {
         </svg>
         {/* arche d'ogive */}
         <svg width="560" height="600" viewBox="0 0 100 150" preserveAspectRatio="none" style={{ position: "absolute", top: 30, left: 320 }}>
-          <path d="M1 150 L1 58 C1 30 24 12 50 1 C76 12 99 30 99 58 L99 150" fill="none" stroke="#C9A24B" strokeWidth="0.35" />
+          <path d="M1 150 L1 58 C1 30 24 12 50 1 C76 12 99 30 99 58 L99 150" fill="none" stroke="#9A7A32" strokeWidth="0.35" />
         </svg>
 
         <OgMonogram size={150} />
-        <div style={{ display: "flex", marginTop: 26, fontFamily: "Inter", fontSize: 18, letterSpacing: "0.4em", color: "#C9A24B", textTransform: "uppercase" }}>
+        <div style={{ display: "flex", marginTop: 26, fontFamily: "Inter", fontSize: 18, letterSpacing: "0.4em", color: "#7A5F24", textTransform: "uppercase" }}>
           {site.hero.title}
         </div>
         <div
@@ -63,7 +63,7 @@ export default async function OgImage() {
         </div>
         <div style={{ display: "flex", alignItems: "center", marginTop: 18 }}>
           <div style={{ width: 80, height: 1, background: "linear-gradient(90deg, transparent, #C9A24B)" }} />
-          <div style={{ margin: "0 22px", fontFamily: "Cormorant", fontWeight: 500, fontSize: 38, letterSpacing: "0.12em", color: "#FAF8F3" }}>
+          <div style={{ margin: "0 22px", fontFamily: "Cormorant", fontWeight: 500, fontSize: 38, letterSpacing: "0.12em", color: "#3A2E1A" }}>
             {identity.dateLong}
           </div>
           <div style={{ width: 80, height: 1, background: "linear-gradient(270deg, transparent, #C9A24B)" }} />

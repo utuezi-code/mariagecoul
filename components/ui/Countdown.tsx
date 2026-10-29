@@ -47,10 +47,10 @@ export function Countdown({ forceToday = false }: { forceToday?: boolean }) {
             <span aria-hidden="true" className="mx-3 w-px self-stretch bg-gradient-to-b from-transparent via-gold/70 to-transparent sm:mx-6" />
           )}
           <div className="flex min-w-[3.6rem] flex-col items-center sm:min-w-[5rem]">
-            <span className="font-display text-4xl font-light tabular-nums leading-none text-ivory sm:text-6xl">
+            <span className="font-display text-4xl font-light tabular-nums leading-none text-ink sm:text-6xl">
               {value === undefined ? "––" : String(value).padStart(2, "0")}
             </span>
-            <span className="eyebrow mt-3 !text-[0.6rem] !tracking-[0.3em] text-gold sm:!text-[0.65rem]">{labels[key]}</span>
+            <span className="eyebrow mt-3 !text-[0.6rem] !tracking-[0.3em] text-gold-ink sm:!text-[0.65rem]">{labels[key]}</span>
           </div>
         </div>
       ))}

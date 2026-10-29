@@ -12,11 +12,11 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
   const after = phase === "apres";
 
   return (
-    <section id="accueil" className="grain relative overflow-hidden bg-ink text-ivory">
-      <GeometricPattern id="pattern-hero" opacity={0.07} />
+    <section id="accueil" className="grain relative overflow-hidden bg-ivory text-graphite">
+      <GeometricPattern id="pattern-hero" opacity={0.12} />
       <div aria-hidden="true" className="halo pointer-events-none absolute left-1/2 top-[52%] h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2" />
-      {/* vignette */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(11,11,11,0.85)_100%)]" />
+      {/* vignette champagne */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(244,236,219,0.9)_100%)]" />
 
       <div className="relative z-[2] mx-auto flex max-w-3xl flex-col items-center px-5 pb-20 pt-24 text-center md:pb-28 md:pt-32">
         {/* Bismillah */}
@@ -24,19 +24,19 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
           <p lang="ar" dir="rtl" className="font-arabic text-[1.9rem] leading-[1.6] text-gold-gradient md:text-4xl">
             {hero.bismillahArabic}
           </p>
-          <p className="eyebrow mt-2 text-gold/80">{hero.bismillahTranslit}</p>
+          <p className="eyebrow mt-2 text-gold-ink">{hero.bismillahTranslit}</p>
         </Reveal>
 
         {/* Verset Ar-Rum */}
         <figure className="mt-8 max-w-[40ch] md:mt-10">
           {/* Hero : apparition d'un seul bloc (le mot par mot est réservé aux versets au scroll) */}
-          <Reveal as="p" onMount delay={0.2} y={10} className="font-display text-lg font-light italic leading-relaxed text-ivory/85 md:text-xl">
+          <Reveal as="p" onMount delay={0.2} y={10} className="font-display text-lg font-light italic leading-relaxed text-graphite md:text-xl">
             {fr(hero.verse.text)}
           </Reveal>
           <Reveal onMount delay={0.6} y={8}>
             <figcaption className="mt-3">
-              <span className="eyebrow text-gold">{hero.verse.reference}</span>
-              <span className="mt-1 block font-display text-sm italic text-ivory/55">{fr(hero.verse.title)}</span>
+              <span className="eyebrow text-gold-ink">{hero.verse.reference}</span>
+              <span className="mt-1 block font-display text-sm italic text-mist-deep">{fr(hero.verse.title)}</span>
             </figcaption>
           </Reveal>
         </figure>
@@ -60,8 +60,8 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
             ) : (
               <>
                 <Reveal onMount delay={1.0} y={10}>
-                  <p className="eyebrow mt-7 text-gold">{fr(hero.eyebrow)}</p>
-                  <p className="mt-3 font-display text-2xl font-light italic text-ivory/90 md:text-3xl">{hero.title}</p>
+                  <p className="eyebrow mt-7 text-gold-ink">{fr(hero.eyebrow)}</p>
+                  <p className="mt-3 font-display text-2xl font-light italic text-graphite md:text-3xl">{hero.title}</p>
                 </Reveal>
                 <h1 className="mt-6 font-display font-light leading-[0.95] tracking-[-0.02em]">
                   <span className="sr-only">
@@ -81,7 +81,7 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
                       ]}
                     />
                     <Reveal as="span" className="block" onMount delay={1.45} y={6}>
-                      <span className="eyebrow block text-ivory/60">{identity.groom}</span>
+                      <span className="eyebrow block text-mist-deep">{identity.groom}</span>
                     </Reveal>
                     <RevealLines
                       as="span"
@@ -96,7 +96,7 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
                       ]}
                     />
                     <Reveal as="span" className="block" onMount delay={1.75} y={6}>
-                      <span className="eyebrow block text-ivory/60">{identity.bride}</span>
+                      <span className="eyebrow block text-mist-deep">{identity.bride}</span>
                     </Reveal>
                   </span>
                 </h1>
@@ -104,7 +104,7 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
             )}
 
             <Reveal onMount delay={after ? 1.5 : 1.95} y={8}>
-              <p className="mt-8 font-display text-xl text-ivory md:text-2xl">{identity.dateLong}</p>
+              <p className="mt-8 font-display text-xl text-ink md:text-2xl">{identity.dateLong}</p>
             </Reveal>
           </div>
         </OgiveArch>
@@ -125,7 +125,7 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
 
         {!after && (
           <Reveal onMount delay={2.4}>
-            <p className="mt-8 text-xs tracking-wide text-ivory/60">{hero.privacyNote}</p>
+            <p className="mt-8 text-xs tracking-wide text-mist-deep">{hero.privacyNote}</p>
           </Reveal>
         )}
       </div>

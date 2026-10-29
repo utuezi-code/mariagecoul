@@ -7,7 +7,7 @@ export const contentType = "image/png";
 export default async function Icon() {
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#0B0B0B" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#FAF8F3" }}>
         <OgMonogram size={60} />
       </div>
     ),

@@ -25,7 +25,7 @@ const OUTER = octagon(112);
 const INNER = octagon(103);
 
 /** Monogramme C&S.A² : « C&S » en Cormorant, « .A² » en exposant doré, dans un octogone. */
-export function Monogram({ className = "", play = "none", delay = 0, tone = "dark", title }: Props) {
+export function Monogram({ className = "", play = "none", delay = 0, tone = "light", title }: Props) {
   const grad = `mg-${useId().replace(/:/g, "")}`;
   const animated = play !== "none";
   const deep = tone === "light";

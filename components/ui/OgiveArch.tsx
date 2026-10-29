@@ -53,9 +53,9 @@ export function OgiveArch({
             placeholder={image.blurDataURL ? "blur" : "empty"}
             blurDataURL={image.blurDataURL}
           />
-          {/* haut presque intact (visages), noir profond en bas pour la lisibilité du texte */}
+          {/* haut intact (visages), fondu ivoire en bas pour la lisibilité du texte */}
           {overlay && (
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(11,11,11,0.15)_0%,rgba(11,11,11,0)_16%,rgba(11,11,11,0.5)_40%,rgba(11,11,11,0.9)_58%,#0b0b0b_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(250,248,243,0)_0%,rgba(250,248,243,0)_22%,rgba(250,248,243,0.6)_42%,rgba(250,248,243,0.94)_58%,#faf8f3_100%)]" />
           )}
         </div>
       ) : null}

@@ -14,7 +14,7 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
 
   return (
     <Reveal delay={index * 0.15} className="h-full">
-      <article className="relative flex h-full flex-col items-center overflow-hidden rounded-t-[11rem] border border-gold/30 bg-white px-6 pb-8 pt-14 text-center shadow-[0_30px_60px_-40px_rgba(11,11,11,0.35)] md:px-10 md:pt-16">
+      <article className="relative flex h-full flex-col items-center overflow-hidden rounded-t-[11rem] border border-gold/30 bg-white px-6 pb-8 pt-14 text-center shadow-[0_30px_60px_-40px_rgba(154,122,50,0.3)] md:px-10 md:pt-16">
         {/* arche intérieure en filet */}
         <svg aria-hidden="true" viewBox="0 0 100 60" preserveAspectRatio="none" className="pointer-events-none absolute inset-x-3 top-3 h-40 w-[calc(100%-1.5rem)] [mask-image:linear-gradient(to_bottom,black_55%,transparent)]" fill="none">
           <path d="M0.5 60 L0.5 40 C0.5 22 22 8 50 0.6 C78 8 99.5 22 99.5 40 L99.5 60" stroke="#C9A24B" strokeOpacity="0.5" strokeWidth="0.6" vectorEffect="non-scaling-stroke" />
@@ -46,8 +46,8 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
           </div>
         </dl>
 
-        <p className="mt-6 inline-flex items-center gap-2 border border-ink/80 bg-ink px-4 py-2 text-ivory">
-          <Shirt className="h-4 w-4 text-gold" strokeWidth={1.25} aria-hidden="true" />
+        <p className="mt-6 inline-flex items-center gap-2 border border-gold/60 bg-ivory px-4 py-2 text-gold-ink">
+          <Shirt className="h-4 w-4 text-gold-ink" strokeWidth={1.25} aria-hidden="true" />
           <span className="eyebrow !text-[0.625rem] !tracking-[0.25em]">{fr(l.dressCodeBadge)}</span>
         </p>
 
@@ -56,13 +56,13 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
             href={mapsHref(venue)}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline text-ink hover:border-gold-deep hover:bg-ink hover:text-ivory"
+            className="btn-outline text-ink hover:border-gold-ink hover:bg-gold-ink hover:text-white"
           >
             <Navigation className="h-4 w-4" strokeWidth={1.25} aria-hidden="true" />
             {l.directions}
           </a>
           {yango ? (
-            <a href={yango} target="_blank" rel="noopener noreferrer" className="btn-outline text-ink hover:border-gold-deep hover:bg-ink hover:text-ivory">
+            <a href={yango} target="_blank" rel="noopener noreferrer" className="btn-outline text-ink hover:border-gold-ink hover:bg-gold-ink hover:text-white">
               <Car className="h-4 w-4" strokeWidth={1.25} aria-hidden="true" />
               {l.yango}
             </a>

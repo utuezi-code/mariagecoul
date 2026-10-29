@@ -29,7 +29,7 @@ export function Navbar({ links }: { links: NavLink[] }) {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ${
-        scrolled && !open ? "border-b border-gold/15 bg-ink/80 backdrop-blur-md" : "border-b border-transparent bg-transparent"
+        scrolled && !open ? "border-b border-gold/25 bg-ivory/85 backdrop-blur-md" : "border-b border-transparent bg-transparent"
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8" aria-label="Navigation principale">
@@ -40,7 +40,7 @@ export function Navbar({ links }: { links: NavLink[] }) {
         <ul className="hidden items-center gap-9 md:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="eyebrow text-ivory/80 transition-colors hover:text-gold-light">
+              <a href={l.href} className="eyebrow text-graphite transition-colors hover:text-gold-ink">
                 {l.label}
               </a>
             </li>
@@ -49,7 +49,7 @@ export function Navbar({ links }: { links: NavLink[] }) {
 
         <button
           type="button"
-          className="relative z-[60] -mr-2 flex h-11 w-11 items-center justify-center text-ivory md:hidden"
+          className="relative z-[60] -mr-2 flex h-11 w-11 items-center justify-center text-ink md:hidden"
           aria-expanded={open}
           aria-controls="menu-mobile"
           aria-label={open ? site.nav.closeMenu : site.nav.openMenu}
@@ -63,7 +63,7 @@ export function Navbar({ links }: { links: NavLink[] }) {
         {open && (
           <m.div
             id="menu-mobile"
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-ink md:hidden"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-ivory md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -77,13 +77,13 @@ export function Navbar({ links }: { links: NavLink[] }) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.08 + i * 0.07, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <a href={l.href} onClick={() => setOpen(false)} className="font-display text-5xl font-light text-ivory transition-colors hover:text-gold-light">
+                  <a href={l.href} onClick={() => setOpen(false)} className="font-display text-5xl font-light text-ink transition-colors hover:text-gold-ink">
                     {l.label}
                   </a>
                 </m.li>
               ))}
             </ul>
-            <p className="eyebrow absolute bottom-10 text-gold">{site.identity.dateShort}</p>
+            <p className="eyebrow absolute bottom-10 text-gold-ink">{site.identity.dateShort}</p>
           </m.div>
         )}
       </AnimatePresence>

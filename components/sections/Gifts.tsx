@@ -18,7 +18,7 @@ export function Gifts() {
                 <h3 className="mt-5 font-display text-2xl text-ink">{item.title}</h3>
                 {item.description && <p className="mt-3 leading-relaxed text-graphite">{item.description}</p>}
                 {item.url && (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="btn-outline mt-auto translate-y-4 text-ink hover:bg-ink hover:text-ivory">
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="btn-outline mt-auto translate-y-4 text-ink hover:border-gold-ink hover:bg-gold-ink hover:text-white">
                     {item.linkLabel ?? item.title}
                     <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.25} aria-hidden="true" />
                   </a>

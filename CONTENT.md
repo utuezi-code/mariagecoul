@@ -15,7 +15,7 @@
 - **Date :** dimanche 29 novembre 2026
 - **Ville :** Abidjan (Abobo)
 - **Fuseau :** Africa/Abidjan (UTC+0)
-- **Couleurs :** blanc, noir, or
+- **Couleurs :** blanc et or (sans noir)
 - **Dress code :** tout en blanc
 
 ---

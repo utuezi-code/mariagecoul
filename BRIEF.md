@@ -8,7 +8,10 @@ Les mots-clés sont **épuré, lumineux, solennel, raffiné, contemporain.**
 
 À éviter : le look « template de mariage » (fleurs aquarelle, rose poudré, script partout), les ornements clichés et les dégradés arc-en-ciel.
 
-## 2. Palette (blanc, noir, or)
+## 2. Palette (blanc et or)
+
+> **Mise à jour (demande des mariés) : le site est blanc et or, sans aucune section noire.** Les sections alternent ivoire, blanc pur et champagne (`#F4ECDB`). Le texte courant reste foncé pour la lisibilité, en brun bronze (`ink` = `#3A2E1A`, `graphite` = `#4A4234`) au lieu du noir. `theme-color` : `#FAF8F3`. Les mentions « sections noires » ci-dessous sont caduques.
+
 
 | Token | Hex | Usage |
 |---|---|---|

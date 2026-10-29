@@ -35,7 +35,7 @@ export function Gallery({ images }: { images: SiteImage[] }) {
   }, [index, close, go]);
 
   return (
-    <section id="galerie" className="grain relative overflow-hidden bg-ink px-5 py-24 md:py-32">
+    <section id="galerie" className="grain relative overflow-hidden bg-champagne px-5 py-24 md:py-32">
       <GeometricPattern id="pattern-gallery" opacity={0.05} />
       <div className="relative z-[2] mx-auto max-w-6xl">
         <SectionTitle title={g.title} />
@@ -73,7 +73,7 @@ export function Gallery({ images }: { images: SiteImage[] }) {
             role="dialog"
             aria-modal="true"
             aria-label={images[index].alt}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/95 p-4"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-ivory/95 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -82,15 +82,15 @@ export function Gallery({ images }: { images: SiteImage[] }) {
             <m.div key={index} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="relative h-[80vh] w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
               <Image src={images[index].src} alt={images[index].alt} fill sizes="100vw" className="object-contain" />
             </m.div>
-            <button type="button" onClick={close} className="absolute right-4 top-4 p-3 text-ivory" aria-label={g.close} autoFocus>
+            <button type="button" onClick={close} className="absolute right-4 top-4 p-3 text-ink" aria-label={g.close} autoFocus>
               <X className="h-6 w-6" strokeWidth={1.25} />
             </button>
             {images.length > 1 && (
               <>
-                <button type="button" onClick={(e) => (e.stopPropagation(), go(-1))} className="absolute left-2 top-1/2 -translate-y-1/2 p-3 text-ivory" aria-label={g.previous}>
+                <button type="button" onClick={(e) => (e.stopPropagation(), go(-1))} className="absolute left-2 top-1/2 -translate-y-1/2 p-3 text-ink" aria-label={g.previous}>
                   <ChevronLeft className="h-8 w-8" strokeWidth={1.25} />
                 </button>
-                <button type="button" onClick={(e) => (e.stopPropagation(), go(1))} className="absolute right-2 top-1/2 -translate-y-1/2 p-3 text-ivory" aria-label={g.next}>
+                <button type="button" onClick={(e) => (e.stopPropagation(), go(1))} className="absolute right-2 top-1/2 -translate-y-1/2 p-3 text-ink" aria-label={g.next}>
                   <ChevronRight className="h-8 w-8" strokeWidth={1.25} />
                 </button>
               </>
