@@ -94,6 +94,10 @@ Prérequis : un compte [GitHub](https://github.com) (le code y est déjà) et un
 3. Reliez la base au projet pour les environnements **Production** et **Preview**.
 4. Vercel ajoute automatiquement `DATABASE_URL` (et selon les cas `DATABASE_URL_UNPOOLED` ou `POSTGRES_URL_NON_POOLING`). Seule `DATABASE_URL` est indispensable : le script de build déduit l'URL directe si elle manque.
 
+> **Important :** tant que le code n'est pas sur `main`, chaque déploiement est une **Preview**. La base et les variables (`ADMIN_PASSWORD`, `RSVP_DEADLINE`…) doivent donc aussi être cochées pour **Preview**, sinon le build ne les voit pas.
+>
+> Sans base reliée, le site est quand même publié : le journal de build affiche « ⚠ Aucune base de données trouvée », et seules les confirmations RSVP ne peuvent pas être enregistrées.
+
 ### Étape 3 — Déployer
 
 1. Onglet **Deployments** → sur le dernier déploiement, menu « ⋯ » → **Redeploy**.
