@@ -176,6 +176,12 @@ Après le mariage, la galerie remonte automatiquement juste sous le hero.
 
 ---
 
+### Animation d'ouverture
+
+À chaque chargement, un parchemin roulé et scellé à la cire se déroule pour présenter les mariés (environ 4 secondes). Un bouton « Passer », ou un toucher n'importe où, permet de l'écourter. Elle est désactivée automatiquement pour les personnes qui ont réduit les animations sur leur téléphone. Pour la retirer : `intro.enabled: false` dans `content/site.ts`.
+
+---
+
 ## 6. Espace admin : voir les réponses RSVP
 
 - Adresse : `https://<votre-site>/admin`, puis le mot de passe `ADMIN_PASSWORD`.

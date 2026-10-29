@@ -93,6 +93,13 @@ export const site = {
     closeMenu: "Fermer le menu",
   },
 
+  /** Animation d'ouverture : parchemin scellé à la cire qui se déroule (à chaque chargement) */
+  intro: {
+    enabled: true,
+    skip: "Passer",
+    skipLabel: "Passer l'animation d'ouverture",
+  },
+
   hero: {
     bismillahArabic: "بسم الله الرحمن الرحيم",
     bismillahTranslit: "Bismillahi ar-Rahmani ar-Rahim",

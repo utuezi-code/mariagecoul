@@ -347,3 +347,277 @@ html.lenis body {
     animation: none;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Intro : parchemin scellé à la cire (components/ui/SealIntro.tsx)    */
+/* Chronologie : apparition 0–0,7 s · sceau brisé 1,0–1,6 s ·          */
+/* déroulé 1,4–2,6 s · texte 1,9–2,7 s · sortie 3,6–4,3 s              */
+/* ------------------------------------------------------------------ */
+html.intro-lock,
+html.intro-lock body {
+  overflow: hidden;
+}
+
+/* Les animations d'entrée du hero attendent la fin de l'intro */
+[data-intro-delay] {
+  --intro: 3.7s;
+}
+.rv.rv-mount,
+.rv-lines.rv-mount .rv-line,
+.rv-words.rv-mount .rv-word,
+.draw-mount .draw,
+.draw-mount .draw-fade,
+.arch-sweep {
+  animation-delay: calc(var(--rv-d, 0s) + var(--intro, 0s) + var(--extra-d, 0s)) !important;
+}
+.rv-lines.rv-mount .rv-line {
+  --extra-d: calc(var(--i, 0) * 0.12s);
+}
+.rv-words.rv-mount .rv-word {
+  --extra-d: calc(var(--i, 0) * 0.05s);
+}
+.draw-mount .draw {
+  --extra-d: var(--draw-d, 0s);
+}
+.draw-mount .draw-fade {
+  --extra-d: 0.9s;
+}
+.arch-sweep {
+  --extra-d: 0.1s;
+}
+/* l'intro elle-même n'attend pas */
+.intro {
+  --intro: 0s;
+}
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background:
+    radial-gradient(ellipse at center, #ffffff 0%, #faf8f3 45%, #f4ecdb 100%);
+  animation: intro-out 0.7s var(--ease-luxe) 3.6s forwards;
+}
+.intro.intro-leaving {
+  animation: intro-out 0.45s var(--ease-luxe) forwards;
+}
+
+.intro-stage {
+  --w: min(84vw, 400px);
+  --h: min(64vh, 520px);
+  --roll: 26px;
+  position: relative;
+  width: var(--w);
+  height: calc(var(--h) + var(--roll) * 2);
+  animation: intro-in 0.7s var(--ease-luxe) both;
+}
+.intro-leaving .intro-stage,
+.intro .intro-stage {
+  transform-origin: 50% 50%;
+}
+
+/* Parchemin */
+.intro-paper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: var(--h);
+  transform: translateY(-50%);
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.9), transparent 70%),
+    linear-gradient(90deg, #efe4c9 0%, #f8f2e3 12%, #fbf7ee 50%, #f8f2e3 88%, #efe4c9 100%);
+  border-left: 1px solid rgba(154, 122, 50, 0.35);
+  border-right: 1px solid rgba(154, 122, 50, 0.35);
+  box-shadow: 0 30px 60px -30px rgba(122, 95, 36, 0.45);
+  clip-path: inset(50% 0 50% 0);
+  animation: intro-unroll 1.2s cubic-bezier(0.65, 0, 0.35, 1) 1.4s forwards;
+}
+.intro-paper::before {
+  /* double filet doré intérieur */
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(201, 162, 75, 0.55);
+  outline: 1px solid rgba(201, 162, 75, 0.25);
+  outline-offset: 4px;
+}
+.intro-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  opacity: 0;
+  animation: rv-fade 0.8s var(--ease-luxe) 1.9s forwards;
+  --rv-y: 10px;
+}
+.intro-rule {
+  width: 5rem;
+  height: 1px;
+  margin: 1rem auto;
+  background: linear-gradient(90deg, transparent, #c9a24b, transparent);
+}
+
+/* Rouleaux */
+.intro-roller {
+  position: absolute;
+  left: -14px;
+  right: -14px;
+  top: 50%;
+  height: var(--roll);
+  margin-top: calc(var(--roll) / -2);
+  border-radius: calc(var(--roll) / 2);
+  background: linear-gradient(to bottom, #7a5f24 0%, #c9a24b 22%, #f0dca8 45%, #c9a24b 65%, #8a6d2c 100%);
+  box-shadow: 0 6px 14px -6px rgba(90, 70, 25, 0.6);
+}
+.intro-roller::before,
+.intro-roller::after {
+  /* embouts */
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: calc(var(--roll) + 8px);
+  transform: translateY(-50%);
+  border-radius: 7px;
+  background: linear-gradient(to bottom, #6b5320, #e6cb8a 45%, #9a7a32);
+}
+.intro-roller::before {
+  left: -8px;
+}
+.intro-roller::after {
+  right: -8px;
+}
+.intro-roller-top {
+  transform: translateY(calc(var(--roll) / -2));
+  animation: intro-roll-top 1.2s cubic-bezier(0.65, 0, 0.35, 1) 1.4s forwards;
+}
+.intro-roller-bottom {
+  transform: translateY(calc(var(--roll) / 2));
+  animation: intro-roll-bottom 1.2s cubic-bezier(0.65, 0, 0.35, 1) 1.4s forwards;
+}
+
+/* Ruban et sceau */
+.intro-ribbon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: calc(var(--roll) * 2 + 34px);
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, #9a7a32, #e6cb8a 50%, #9a7a32);
+  box-shadow: 0 2px 6px rgba(90, 70, 25, 0.35);
+  animation: intro-fade-away 0.5s ease 1.05s forwards;
+}
+.intro-seal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  filter: drop-shadow(0 6px 10px rgba(90, 70, 25, 0.45));
+  animation: intro-seal-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s both;
+}
+.intro-seal-half {
+  position: absolute;
+  inset: 0;
+}
+.intro-seal-left {
+  clip-path: polygon(0 0, 54% 0, 46% 38%, 55% 60%, 47% 100%, 0 100%);
+  animation: intro-seal-left 0.7s cubic-bezier(0.55, 0, 0.75, 0) 1s forwards;
+}
+.intro-seal-right {
+  clip-path: polygon(54% 0, 100% 0, 100% 100%, 47% 100%, 55% 60%, 46% 38%);
+  animation: intro-seal-right 0.7s cubic-bezier(0.55, 0, 0.75, 0) 1s forwards;
+}
+
+@keyframes intro-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes intro-seal-in {
+  from {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes intro-seal-left {
+  0% {
+    transform: none;
+  }
+  15% {
+    transform: translateX(-2px) rotate(-3deg);
+  }
+  100% {
+    transform: translate(-70px, 60px) rotate(-38deg);
+    opacity: 0;
+  }
+}
+@keyframes intro-seal-right {
+  0% {
+    transform: none;
+  }
+  15% {
+    transform: translateX(2px) rotate(3deg);
+  }
+  100% {
+    transform: translate(70px, 60px) rotate(38deg);
+    opacity: 0;
+  }
+}
+@keyframes intro-fade-away {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleY(1.2);
+  }
+}
+@keyframes intro-unroll {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes intro-roll-top {
+  to {
+    transform: translateY(calc(var(--h) / -2 - var(--roll) / 2));
+  }
+}
+@keyframes intro-roll-bottom {
+  to {
+    transform: translateY(calc(var(--h) / 2 + var(--roll) / 2));
+  }
+}
+@keyframes intro-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none !important;
+  }
+  [data-intro-delay] {
+    --intro: 0s;
+  }
+}

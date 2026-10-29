@@ -3,6 +3,7 @@ import type { SiteState } from "@/lib/date";
 import { optionalSections, type Media } from "@/lib/sections";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { RevealObserver } from "@/components/ui/RevealObserver";
+import { SealIntro } from "@/components/ui/SealIntro";
 import { Navbar, type NavLink } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Invitation } from "@/components/sections/Invitation";
@@ -44,8 +45,10 @@ export function HomePage({ state, media = site.media, demo = false }: { state: S
     <>
       <SmoothScroll />
       <RevealObserver />
+      {site.intro.enabled && <SealIntro />}
       <Navbar links={links} />
-      <main>
+      {/* data-intro-delay : les animations d'entrée du hero attendent la fin de l'intro */}
+      <main {...(site.intro.enabled ? { "data-intro-delay": "" } : {})}>
         <Hero phase={phase} rsvpOpen={rsvpOpen} image={media.hero} />
         {galleryFirst && <Gallery images={media.gallery} />}
         {optional.story && <Story image={media.story} />}

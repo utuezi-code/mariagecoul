@@ -21,6 +21,7 @@ export function OgiveArch({
   draw = true,
   priority = false,
   overlay = true,
+  imageTop = "0%",
 }: {
   image?: SiteImage | null;
   children?: ReactNode;
@@ -28,6 +29,8 @@ export function OgiveArch({
   draw?: boolean;
   priority?: boolean;
   overlay?: boolean;
+  /** Décale la photo vers le bas pour que les têtes ne soient pas coupées par la pointe de l'arche */
+  imageTop?: string;
 }) {
   const uid = useId().replace(/:/g, "");
   const clipId = `ogive-${uid}`;
@@ -42,17 +45,21 @@ export function OgiveArch({
       </svg>
 
       {image ? (
-        <div className="absolute inset-0" style={{ clipPath: `url(#${clipId})` }}>
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            priority={priority}
-            sizes="(min-width: 768px) 560px, 92vw"
-            className="object-cover object-top"
-            placeholder={image.blurDataURL ? "blur" : "empty"}
-            blurDataURL={image.blurDataURL}
-          />
+        <div className="absolute inset-0 bg-white" style={{ clipPath: `url(#${clipId})` }}>
+          <div className="absolute inset-x-0 bottom-0" style={{ top: imageTop }}>
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              priority={priority}
+              sizes="(min-width: 768px) 560px, 92vw"
+              className="object-cover object-[50%_0%]"
+              placeholder={image.blurDataURL ? "blur" : "empty"}
+              blurDataURL={image.blurDataURL}
+            />
+            {/* raccord invisible entre le haut de la photo et le blanc de l'arche */}
+            <div className="absolute inset-x-0 top-0 h-[14%] bg-gradient-to-b from-white to-transparent" />
+          </div>
           {/* haut intact (visages), fondu ivoire en bas pour la lisibilité du texte */}
           {overlay && (
             <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(250,248,243,0)_0%,rgba(250,248,243,0)_22%,rgba(250,248,243,0.6)_42%,rgba(250,248,243,0.94)_58%,#faf8f3_100%)]" />

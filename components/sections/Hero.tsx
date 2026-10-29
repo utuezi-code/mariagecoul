@@ -42,10 +42,10 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
         </figure>
 
         {/* Arche + noms */}
-        <OgiveArch image={image} priority className="mt-10 w-full max-w-[22rem] md:mt-14 md:max-w-[38rem]">
+        <OgiveArch image={image} imageTop="13%" priority className="mt-10 w-full max-w-[22rem] md:mt-14 md:max-w-[38rem]">
           <div className="flex flex-col items-center px-6 pb-12 pt-10 md:px-10 md:pb-16 md:pt-14">
             {/* Avec photo : les visages occupent le haut de l'arche, le texte commence plus bas */}
-            {image && <div aria-hidden="true" className="h-[16rem] md:h-[22rem]" />}
+            {image && <div aria-hidden="true" className="h-[19rem] md:h-[26rem]" />}
             <Monogram play="mount" delay={0.2} className={image ? "h-16 w-16 md:h-20 md:w-20" : "h-20 w-20 md:h-24 md:w-24"} />
 
             {after ? (
