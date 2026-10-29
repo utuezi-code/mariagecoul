@@ -39,9 +39,14 @@ export function Gallery({ images }: { images: SiteImage[] }) {
       <GeometricPattern id="pattern-gallery" opacity={0.05} />
       <div className="relative z-[2] mx-auto max-w-6xl">
         <SectionTitle title={g.title} />
-        <div className="mt-14 columns-2 gap-3 md:columns-3 md:gap-5">
+        {/* Rangées centrées : la dernière rangée incomplète reste équilibrée, quel que soit le nombre de photos */}
+        <div className="mt-14 flex flex-wrap justify-center gap-3 md:gap-5">
           {images.map((img, i) => (
-            <Reveal key={img.src} delay={(i % 3) * 0.08} className="mb-3 break-inside-avoid md:mb-5">
+            <Reveal
+              key={img.src}
+              delay={(i % 3) * 0.08}
+              className="w-[calc(50%-0.375rem)] md:w-[calc((100%-2.5rem)/3)]"
+            >
               <button type="button" onClick={() => setIndex(i)} className="group block w-full overflow-hidden" aria-label={img.alt}>
                 <Image
                   src={img.src}

@@ -280,7 +280,7 @@ export const site = {
   },
 
   gallery: {
-    enabled: false,
+    enabled: true,
     title: "Galerie",
     close: "Fermer",
     previous: "Photo précédente",
@@ -305,10 +305,16 @@ export const site = {
   /* ---------------------------------------------------------------- */
 
   media: {
-    hero: null as SiteImage | null, // { src: "/images/hero.webp", alt: "…", width, height, blurDataURL }
+    hero: { src: "/images/couple-blanc.webp", alt: "Aboubakar et Aïchatou en chemise blanche et jean, debout côte à côte", width: 1024, height: 1535, blurDataURL: "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwAgCdASoLABAAA4BaJQAB8ZoezfuA+j6LAAD++BVvrlRy0Z77OoKQ/EZtSaTC2RdrnkydqPRRH/11/X9yzEiib3/QOdfMnIrinbFfueJm6fbKVIAAAA==" } as SiteImage | null,
     invitation: null as SiteImage | null,
     story: null as SiteImage | null,
-    gallery: [] as SiteImage[],
+    gallery: [
+      { src: "/images/couple-blanc.webp", alt: "Aboubakar et Aïchatou en chemise blanche et jean, debout côte à côte", width: 1024, height: 1535, blurDataURL: "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwAgCdASoLABAAA4BaJQAB8ZoezfuA+j6LAAD++BVvrlRy0Z77OoKQ/EZtSaTC2RdrnkydqPRRH/11/X9yzEiib3/QOdfMnIrinbFfueJm6fbKVIAAAA==" },
+      { src: "/images/couple-tenue-traditionnelle.webp", alt: "Aboubakar et Aïchatou en tenue traditionnelle jaune, Aboubakar enlaçant Aïchatou", width: 1024, height: 1535, blurDataURL: "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQAgCdASoLABAAA4BaJbACdAYt9N8PakAAAN5YBliqC3TvPl2UwY1R6UQrDTxN+vlZFXtPJRZoJ+kQniZV5+V7KqPTYb3tpetSf8fAVvG/er8aQf7UNgyaqXIvs4AA" },
+      { src: "/images/couple-bisou.webp", alt: "Aboubakar embrassant Aïchatou sur la joue, tous deux en chemise blanche", width: 1024, height: 1535, blurDataURL: "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADwAQCdASoLABAAA4BaJQApgAY7jbFy46AA/uhuP/XCTrtm28/066mzzHtaLFpaF3dKJylYOeMgdGg6H2RnUwjl6gzqGgD1e/T4sAyGwOwe2TMA/Hf4kQPSyH/se6LaXB4AAA==" },
+      { src: "/images/couple-portrait.webp", alt: "Portrait d'Aïchatou en robe beige et d'Aboubakar en veste bleue", width: 1024, height: 1535, blurDataURL: "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABQAgCdASoLABAAA4BaJaACdH8AgpicjMQ4M9AA/vKGYWfd8ghf30Dra/ds/2zLo/q22O47efFy5Aig3FD2MOpTSE5BsZNnZQFrN87mrPSDh7qc9cJS/r7+Mc5qchkDcgA1AFB20Kuery6ep23lsHAA" },
+      { src: "/images/couple-tenue-soiree.webp", alt: "Aboubakar et Aïchatou enlacés, en tenue de soirée beige et bleue", width: 1025, height: 1535, blurDataURL: "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoLABAAA4BaJQBOgMWHtlsgvywAAP70FOvt8YoFw/4m48HbwfsFH3bMCWQ7Yw246eXA4dYDuoQVHcX5/E4FcKlA++bx2NdnBUOfAAAA" },
+    ] as SiteImage[],
     ogImage: null as SiteImage | null, // sinon image générée avec le monogramme
   },
 };

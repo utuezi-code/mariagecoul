@@ -49,11 +49,14 @@ export function OgiveArch({
             fill
             priority={priority}
             sizes="(min-width: 768px) 560px, 92vw"
-            className="object-cover"
+            className="object-cover object-top"
             placeholder={image.blurDataURL ? "blur" : "empty"}
             blurDataURL={image.blurDataURL}
           />
-          {overlay && <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-ink/55 to-ink/90" />}
+          {/* haut presque intact (visages), noir profond en bas pour la lisibilité du texte */}
+          {overlay && (
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(11,11,11,0.15)_0%,rgba(11,11,11,0)_16%,rgba(11,11,11,0.5)_40%,rgba(11,11,11,0.9)_58%,#0b0b0b_100%)]" />
+          )}
         </div>
       ) : null}
 

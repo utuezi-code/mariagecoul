@@ -36,10 +36,10 @@ Toutes ces valeurs se trouvent dans **`content/site.ts`** (recherchez `TODO_MARI
 | 6 | Contacts (nom + numéro WhatsApp, 1 ou 2) | `rsvp.contacts` | vide → le bloc Contacts est masqué |
 | 7 | Heure de fin de la réception (fichier calendrier uniquement) | `invitation.venues[1].end` | `19 h 00` (provisoire) |
 | 8 | « Notre histoire » : texte + 1 photo | `story` + `media.story` | désactivée |
-| 9 | Galerie : 6 à 12 photos HD | `media.gallery` | désactivée |
+| 9 | Galerie : 6 à 12 photos HD | `media.gallery` | ✅ 5 photos en ligne (ajouts possibles) |
 | 10 | Liste de cadeaux | `gifts` | désactivée |
 | 11 | FAQ (arrivée, parking, enfants, photos…) | `faq` | désactivée |
-| 12 | Photo principale du couple (portrait, HD) pour le hero | `media.hero` | aucune → hero typographique |
+| 12 | Photo principale du couple (portrait, HD) pour le hero | `media.hero` | ✅ fournie (chemises blanches) |
 | 13 | (Optionnel) photo pour l'aperçu WhatsApp | `media.ogImage` | aucune → image générée avec le monogramme |
 | 14 | Nom de domaine personnalisé | Vercel | sous-domaine `*.vercel.app` |
 | 15 | Mot de passe de l'espace admin | variable Vercel `ADMIN_PASSWORD` | à choisir |
