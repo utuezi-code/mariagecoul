@@ -4,6 +4,7 @@ import { m, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { hhmmToMinutes, type Phase } from "@/lib/date";
+import { telHref } from "@/lib/links";
 import { fr } from "@/lib/typo";
 import { GeometricPattern } from "@/components/ui/GeometricPattern";
 import { StepIcon } from "@/components/ui/icons";
@@ -89,6 +90,28 @@ export function Programme({ phase }: { phase: Phase }) {
           <p className="mx-auto max-w-[32ch] font-display text-2xl font-light italic leading-snug text-gold-gradient md:text-3xl">
             {fr(site.programme.closing)}
           </p>
+          {site.rsvp.contacts.length > 0 && (
+            <div className="mt-10 text-ivory/80">
+              <p className="eyebrow text-gold">{site.rsvp.contactsTitle}</p>
+              <ul className="mt-3 flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:gap-3">
+                {site.rsvp.contacts.map((c, i) => (
+                  <li key={c.whatsapp} className="flex items-center gap-3">
+                    {i > 0 && (
+                      <span aria-hidden="true" className="hidden text-gold/60 sm:inline">
+                        /
+                      </span>
+                    )}
+                    <a
+                      href={telHref(c.whatsapp)}
+                      className="whitespace-nowrap font-display text-xl tabular-nums underline decoration-gold/40 underline-offset-4 hover:text-gold-light"
+                    >
+                      {c.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </Reveal>
       </div>
     </section>

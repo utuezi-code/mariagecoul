@@ -51,7 +51,7 @@ export type Venue = {
   icon: "mosque" | "utensils";
 };
 
-export type Contact = { name: string; whatsapp: string }; // whatsapp au format international sans +, ex. "2250700000000"
+export type Contact = { label: string; whatsapp: string }; // label = numéro affiché ; whatsapp = format international sans +, ex. "2250700000000"
 
 /* ------------------------------------------------------------------ */
 /* Contenu                                                             */
@@ -95,16 +95,16 @@ export const site = {
 
   hero: {
     bismillahArabic: "بسم الله الرحمن الرحيم",
-    bismillahTranslit: "Bismillah ar-Rahman ar-Rahim",
+    bismillahTranslit: "Bismillahi ar-Rahmani ar-Rahim",
     verse: {
       reference: "Sourate Ar-Rum (30:21)",
       title: "Le miracle de l'amour",
       text: "« Et parmi Ses signes, Il a créé de vous, pour vous, des épouses afin que vous viviez en tranquillité avec elles et Il a mis entre vous de l'affection et de la bonté. »",
     } satisfies Verse,
-    eyebrow: "Fotaman !",
+    eyebrow: "Fotamanan !",
     title: "Nous nous marions",
-    cta: "Confirmer ma présence",
-    privacyNote: "Merci de ne pas partager ce lien.",
+    cta: "Confirmer votre présence",
+    privacyNote: "Merci de ne pas partager ce lien",
     countdownLabels: { days: "Jours", hours: "Heures", minutes: "Minutes", seconds: "Secondes" },
     /** État « jour J » (BRIEF §7) */
     todayLabel: "C'est aujourd'hui",
@@ -118,8 +118,8 @@ export const site = {
       title: "L'unité de la communauté humaine",
       text: "« Ô vous les gens ! Craignez votre Seigneur qui vous a créés d'une âme unique et qui a créé de celle-ci son épouse. »",
     } satisfies Verse,
-    title: "Nous nous disons Oui",
-    text: "C&S.A² ont la joie de vous inviter à célébrer leur union le dimanche 29 novembre 2026.",
+    title: "Nous nous disons Oui !",
+    text: "Coulibaly Zié Aboubakar et Silué Aïchatou ont la joie de vous inviter à célébrer leur union le dimanche 29 novembre 2026.",
     venues: [
       {
         id: "ceremonie",
@@ -127,12 +127,12 @@ export const site = {
         time: "08 h 00",
         start: "2026-11-29T08:00:00Z",
         end: "2026-11-29T10:00:00Z",
-        place: "Mosquée Aboubakar Sidik, Abobo, derrière Rail",
+        place: "Mosquée Aboubakar Sidik à Abobo derrière Rail",
         landmark: "Pharmacie Saint-Antoine (sur Yango)",
         yangoSearch: "Pharmacie Saint-Antoine",
-        dressCode: "Tout blanc (exigé)",
-        mapsUrl: null, // TODO_MARIES
-        coordinates: null, // TODO_MARIES
+        dressCode: "Tout en blanc",
+        mapsUrl: "https://maps.app.goo.gl/En9NRTKftTCKtdxX7",
+        coordinates: null, // TODO_MARIES — active le bouton Yango
         icon: "mosque",
       },
       {
@@ -141,11 +141,11 @@ export const site = {
         time: "13 h 00",
         start: "2026-11-29T13:00:00Z",
         end: "2026-11-29T19:00:00Z", // TODO_MARIES — heure de fin (fichier .ics uniquement)
-        place: "Abobo Espace Événementiel N'Gouha, N° 90, Angoran",
+        place: "Abobo Té Espace Événementiel N'Gouha, N° 90, Angoran",
         landmark: "Sur Yango",
-        yangoSearch: "Abobo Espace Événementiel N'Gouha",
-        dressCode: "Tout blanc (exigé)",
-        mapsUrl: null, // TODO_MARIES
+        yangoSearch: "Abobo Té Espace Événementiel N'Gouha",
+        dressCode: "Tout en blanc",
+        mapsUrl: "https://maps.app.goo.gl/iRPMeKnKzG4yry2CA",
         coordinates: null, // TODO_MARIES
         icon: "utensils",
       },
@@ -154,7 +154,7 @@ export const site = {
       time: "Heure",
       place: "Lieu",
       landmark: "Repère",
-      dressCodeBadge: "Dress code : tout blanc",
+      dressCodeBadge: "Dress code : tout en blanc",
       directions: "Itinéraire",
       yango: "Commander un Yango",
       yangoFallbackPrefix: "Sur Yango :",
@@ -164,7 +164,7 @@ export const site = {
 
   dressCode: {
     label: "Dress code exigé",
-    value: "Tout blanc",
+    value: "Tout en blanc",
   },
 
   programme: {
@@ -177,8 +177,8 @@ export const site = {
     steps: [
       { time: "08 h 00", at: "08:00", label: "Mariage religieux à la mosquée", icon: "mosque" },
       { time: "10 h 00", at: "10:00", label: "Séance photos des mariés", icon: "camera" },
-      { time: "11 h 00", at: "11:00", label: "Accueil & mise en place", icon: "door" },
-      { time: "13 h 00", at: "13:00", label: "Réception & déjeuner", icon: "utensils" },
+      { time: "12 h 00", at: "12:00", label: "Accueil et mise en place", icon: "door" },
+      { time: "13 h 00", at: "13:00", label: "Réception et déjeuner", icon: "utensils" },
       { time: "15 h 00", at: "15:00", label: "Découpe du gâteau", icon: "cake" },
       { time: "16 h 30", at: "16:30", label: "Lancer du bouquet", icon: "flower" },
       { time: "17 h 00", at: "17:00", label: "Photos souvenirs", icon: "images" },
@@ -197,8 +197,11 @@ export const site = {
     success: "Merci ! Nous avons hâte de célébrer ce jour avec vous.",
     closed: "Les confirmations sont désormais closes. Merci à tous ceux qui ont répondu.",
     maxGuests: 5, // TODO_MARIES — nombre max. de personnes par réponse
-    contacts: [] as Contact[], // TODO_MARIES — 1 ou 2 contacts : { name: "…", whatsapp: "225…" }
-    contactsTitle: "Contacts",
+    contacts: [
+      { label: "+225 07 57 73 65 78", whatsapp: "2250757736578" },
+      { label: "+225 07 48 78 92 22", whatsapp: "2250748789222" },
+    ] as Contact[],
+    contactsTitle: "Info line",
     whatsappLabel: "WhatsApp",
     form: {
       name: "Nom complet",

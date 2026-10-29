@@ -15,6 +15,10 @@ export function yangoHref(v: Venue): string | null {
   return `https://yango.go.link/route?end-lat=${v.coordinates.lat}&end-lon=${v.coordinates.lng}`;
 }
 
+export function telHref(number: string): string {
+  return `tel:+${number.replace(/[^0-9]/g, "")}`;
+}
+
 export function whatsappHref(number: string): string {
   return `https://wa.me/${number.replace(/[^0-9]/g, "")}`;
 }

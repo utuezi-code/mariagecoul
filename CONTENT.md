@@ -1,6 +1,7 @@
 # CONTENT.md — Contenu du site (fourni par les mariés, corrigé)
 
 > Source : le document des mariés, avec l'orthographe et la typographie corrigées et la mise en forme normalisée.
+> Mis à jour le 29/10/2026 d'après « Invitation (new).pdf ». Heure du mariage religieux confirmée : 08 h 00.
 > **Ne pas reformuler les versets ni les textes.** Les éléments `TODO_MARIES` sont à compléter.
 
 ---
@@ -15,26 +16,26 @@
 - **Ville :** Abidjan (Abobo)
 - **Fuseau :** Africa/Abidjan (UTC+0)
 - **Couleurs :** blanc, noir, or
-- **Dress code :** tout blanc (exigé)
+- **Dress code :** tout en blanc
 
 ---
 
 ## Section 1 — Accueil (Hero)
 
 **Formule d'ouverture (arabe) :** بسم الله الرحمن الرحيم
-**Translittération :** Bismillah ar-Rahman ar-Rahim
+**Translittération :** Bismillahi ar-Rahmani ar-Rahim
 
 **Référence :** Sourate Ar-Rum (30:21), « Le miracle de l'amour »
 **Verset :**
 > « Et parmi Ses signes, Il a créé de vous, pour vous, des épouses afin que vous viviez en tranquillité avec elles et Il a mis entre vous de l'affection et de la bonté. »
 
-**Surtitre :** Fotaman !
+**Surtitre :** Fotamanan !
 **Titre :** Nous nous marions
-**Noms :** Coulibaly Zié Aboubakar & Silué Aïchatou
+**Noms :** Aboubakar & Aïchatou [C&S.A²]
 **Date :** Dimanche 29 novembre 2026
 **Compte à rebours :** jusqu'au 29/11/2026 à 08 h 00
-**Bouton :** Confirmer ma présence
-**Mention :** Merci de ne pas partager ce lien.
+**Bouton :** Confirmer votre présence
+**Mention :** Merci de ne pas partager ce lien
 
 ---
 
@@ -44,22 +45,22 @@
 **Verset :**
 > « Ô vous les gens ! Craignez votre Seigneur qui vous a créés d'une âme unique et qui a créé de celle-ci son épouse. »
 
-**Titre :** Nous nous disons Oui
-**Texte :** C&S.A² ont la joie de vous inviter à célébrer leur union le dimanche 29 novembre 2026.
+**Titre :** Nous nous disons Oui !
+**Texte :** Coulibaly Zié Aboubakar et Silué Aïchatou ont la joie de vous inviter à célébrer leur union le dimanche 29 novembre 2026.
 
 ### Carte 1 — Mariage religieux
 - **Heure :** 08 h 00
-- **Lieu :** Mosquée Aboubakar Sidik, Abobo, derrière Rail
+- **Lieu :** Mosquée Aboubakar Sidik à Abobo derrière Rail
 - **Repère :** Pharmacie Saint-Antoine (sur Yango)
-- **Dress code :** tout blanc (exigé)
-- **Lien Google Maps :** `TODO_MARIES`
+- **Dress code :** tout en blanc
+- **Lien Google Maps :** https://maps.app.goo.gl/En9NRTKftTCKtdxX7
 
 ### Carte 2 — Réception des convives
 - **Heure :** 13 h 00
-- **Lieu :** Abobo Espace Événementiel N'Gouha, N° 90, Angoran
+- **Lieu :** Abobo Té Espace Événementiel N'Gouha, N° 90, Angoran
 - **Repère :** sur Yango
-- **Dress code :** tout blanc (exigé)
-- **Lien Google Maps :** `TODO_MARIES`
+- **Dress code :** tout en blanc
+- **Lien Google Maps :** https://maps.app.goo.gl/iRPMeKnKzG4yry2CA
 
 ---
 
@@ -75,14 +76,16 @@
 |---|---|---|
 | 08 h 00 | Mariage religieux à la mosquée | mosquée / croissant |
 | 10 h 00 | Séance photos des mariés | appareil photo |
-| 11 h 00 | Accueil & mise en place | portes / accueil |
-| 13 h 00 | Réception & déjeuner | couverts |
+| 12 h 00 | Accueil et mise en place | portes / accueil |
+| 13 h 00 | Réception et déjeuner | couverts |
 | 15 h 00 | Découpe du gâteau | gâteau |
 | 16 h 30 | Lancer du bouquet | fleur |
 | 17 h 00 | Photos souvenirs | images |
 | 17 h 30 | Ouverture de la piste de danse | musique |
 
 **Clôture :** *Qu'Allah bénisse notre union et qu'Il vous comble de bienfaits.*
+
+**Info line :** +225 07 57 73 65 78 / +225 07 48 78 92 22
 
 ---
 
@@ -93,7 +96,7 @@
 - **Message de confirmation :** Merci ! Nous avons hâte de célébrer ce jour avec vous.
 - **Message après clôture :** Les confirmations sont désormais closes. Merci à tous ceux qui ont répondu.
 - **Nombre max. de personnes par réponse :** `TODO_MARIES`
-- **Contacts :** `TODO_MARIES` (nom + numéro WhatsApp, 1 ou 2 contacts)
+- **Contacts (Info line) :** +225 07 57 73 65 78 / +225 07 48 78 92 22
 
 ---
 

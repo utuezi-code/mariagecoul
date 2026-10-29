@@ -28,12 +28,12 @@ Toutes ces valeurs se trouvent dans **`content/site.ts`** (recherchez `TODO_MARI
 
 | # | Information | Où | Valeur actuelle |
 |---|---|---|---|
-| 1 | Lien Google Maps de la **mosquée** | `invitation.venues[0].mapsUrl` | `null` → le bouton « Itinéraire » lance une recherche Google Maps sur l'adresse |
-| 2 | Lien Google Maps de la **salle de réception** | `invitation.venues[1].mapsUrl` | `null` → recherche sur l'adresse |
+| 1 | Lien Google Maps de la **mosquée** | `invitation.venues[0].mapsUrl` | ✅ fourni |
+| 2 | Lien Google Maps de la **salle de réception** | `invitation.venues[1].mapsUrl` | ✅ fourni |
 | 3 | Coordonnées GPS des deux lieux (`{ lat: 5.4…, lng: -4.0… }`) | `invitation.venues[*].coordinates` | `null` → le bouton « Commander un Yango » est remplacé par la mention « Sur Yango : … » |
 | 4 | **Date limite** des confirmations | `rsvp.text` **et** variable Vercel `RSVP_DEADLINE` | Proposition : 15 novembre 2026 (`2026-11-15T23:59:00Z`) |
 | 5 | Nombre maximum de personnes par réponse | `rsvp.maxGuests` | `5` |
-| 6 | Contacts (nom + numéro WhatsApp, 1 ou 2) | `rsvp.contacts` | vide → le bloc Contacts est masqué |
+| 6 | Contacts (numéros WhatsApp, « Info line ») | `rsvp.contacts` | ✅ Info line : 2 numéros |
 | 7 | Heure de fin de la réception (fichier calendrier uniquement) | `invitation.venues[1].end` | `19 h 00` (provisoire) |
 | 8 | « Notre histoire » : texte + 1 photo | `story` + `media.story` | désactivée |
 | 9 | Galerie : 6 à 12 photos HD | `media.gallery` | ✅ 5 photos en ligne (ajouts possibles) |
@@ -48,7 +48,7 @@ Toutes ces valeurs se trouvent dans **`content/site.ts`** (recherchez `TODO_MARI
 
 ```ts
 contacts: [
-  { name: "Aboubakar", whatsapp: "2250700000000" }, // indicatif 225 + numéro, sans espace ni +
+  { label: "+225 07 00 00 00 00", whatsapp: "2250700000000" }, // label affiché ; whatsapp = 225 + numéro, sans espace ni +
 ],
 ```
 

@@ -324,12 +324,13 @@ export function Rsvp({ open }: { open: boolean }) {
                 <li key={c.whatsapp}>
                   <a
                     href={whatsappHref(c.whatsapp)}
+                    aria-label={`${rsvp.whatsappLabel} ${c.label}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-outline text-ink hover:bg-ink hover:text-ivory"
                   >
                     <MessageCircle className="h-4 w-4" strokeWidth={1.25} aria-hidden="true" />
-                    {c.name} · {rsvp.whatsappLabel}
+                    {c.label}
                   </a>
                 </li>
               ))}
