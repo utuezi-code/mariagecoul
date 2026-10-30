@@ -267,6 +267,15 @@ export const site = {
       ceremony: "Cérémonie religieuse",
       reception: "Réception",
     },
+    bySide: "Par côté",
+    sideStats: { yes: "oui", person: "personne", people: "personnes" },
+    sides: {
+      m: "Invités de M. (Aboubakar)",
+      mme: "Invités de Mme (Aïchatou)",
+      none: "Lien général",
+    },
+    sideFilter: "Côté",
+    sideAll: "Tous",
     columns: {
       name: "Nom",
       phone: "Téléphone",
@@ -274,6 +283,7 @@ export const site = {
       guests: "Personnes",
       events: "Cérémonie(s)",
       message: "Message",
+      side: "Invité de",
       date: "Date",
     },
     empty: "Aucune réponse pour le moment.",

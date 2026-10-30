@@ -182,6 +182,20 @@ Après le mariage, la galerie remonte automatiquement juste sous le hero.
 
 ---
 
+### Liens « invités de M. » et « invités de Mme »
+
+Il existe trois adresses qui affichent exactement le même site :
+
+| Lien à envoyer | Par qui | Dans l'admin |
+|---|---|---|
+| `https://<votre-site>/m` | M. (Aboubakar) | « Invités de M. (Aboubakar) » |
+| `https://<votre-site>/mme` | Mme (Aïchatou) | « Invités de Mme (Aïchatou) » |
+| `https://<votre-site>/` | lien général | « Lien général » |
+
+Chaque réponse RSVP est étiquetée selon le lien ouvert par l'invité (mémorisé 90 jours sur son téléphone ; s'il ouvre les deux liens, c'est le dernier qui compte). L'admin affiche les totaux par côté, un filtre « Côté » et une colonne « Invité de », reprise dans l'export CSV.
+
+---
+
 ## 6. Espace admin : voir les réponses RSVP
 
 - Adresse : `https://<votre-site>/admin`, puis le mot de passe `ADMIN_PASSWORD`.

@@ -3,6 +3,7 @@ import { Download, LogOut, Search } from "lucide-react";
 import { site } from "@/content/site";
 import { isAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
+import { parseSide } from "@/lib/sides";
 import { Monogram } from "@/components/ui/Monogram";
 import { login, logout } from "./actions";
 
@@ -36,8 +37,12 @@ function Login({ error }: { error: boolean }) {
   );
 }
 
-export default async function AdminPage({ searchParams }: { searchParams: Promise<{ q?: string; erreur?: string }> }) {
-  const { q = "", erreur } = await searchParams;
+export default async function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; cote?: string; erreur?: string }>;
+}) {
+  const { q = "", cote = "", erreur } = await searchParams;
   if (!(await isAdmin())) return <Login error={!!erreur} />;
 
   const query = q.trim();
@@ -46,9 +51,9 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   let dbError = false;
   try {
     all = await prisma.rsvp.findMany({ orderBy: { createdAt: "desc" } });
-    rows = query
-      ? all.filter((r) => `${r.name} ${r.phone}`.toLowerCase().includes(query.toLowerCase()))
-      : all;
+    rows = all
+      .filter((r) => !query || `${r.name} ${r.phone}`.toLowerCase().includes(query.toLowerCase()))
+      .filter((r) => !cote || (cote === "none" ? !parseSide(r.side) : r.side === cote));
   } catch (e) {
     console.error(e);
     dbError = true;
@@ -63,6 +68,11 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     { label: a.totals.ceremony, value: sum(yes.filter((r) => r.events === "ceremonie" || r.events === "les-deux")) },
     { label: a.totals.reception, value: sum(yes.filter((r) => r.events === "reception" || r.events === "les-deux")) },
   ];
+  const sideKey = (s: string | null) => parseSide(s) ?? "none";
+  const bySide = (["m", "mme", "none"] as const).map((k) => {
+    const list = yes.filter((r) => sideKey(r.side) === k);
+    return { key: k, label: a.sides[k], yes: list.length, people: sum(list) };
+  });
   const ev = site.rsvp.form.eventsOptions as Record<string, string>;
   const dateFmt = new Intl.DateTimeFormat("fr-FR", { timeZone: site.identity.timezone, dateStyle: "short", timeStyle: "short" });
 
@@ -99,11 +109,34 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           ))}
         </dl>
 
-        <form className="mt-8 flex max-w-md gap-2" role="search">
+        <p className="eyebrow mt-8 !text-[0.65rem] text-gold-ink">{a.bySide}</p>
+        <dl className="mt-3 grid gap-3 md:grid-cols-3">
+          {bySide.map((s) => (
+            <div key={s.key} className="border border-gold/30 bg-white p-4">
+              <dt className="eyebrow !text-[0.6rem] !tracking-[0.2em] text-mist-deep">{s.label}</dt>
+              <dd className="mt-2 font-display text-2xl text-ink">
+                {s.yes} {a.sideStats.yes} · {s.people} {s.people > 1 ? a.sideStats.people : a.sideStats.person}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <form className="mt-8 flex max-w-2xl flex-wrap gap-2" role="search">
           <label htmlFor="q" className="sr-only">
             {a.search}
           </label>
-          <input id="q" name="q" defaultValue={query} placeholder={a.search} className="field flex-1" />
+          <input id="q" name="q" defaultValue={query} placeholder={a.search} className="field min-w-[14rem] flex-1" />
+          <label htmlFor="cote" className="sr-only">
+            {a.sideFilter}
+          </label>
+          <select id="cote" name="cote" defaultValue={cote} className="field w-auto cursor-pointer">
+            <option value="">
+              {a.sideFilter} : {a.sideAll}
+            </option>
+            <option value="m">{a.sides.m}</option>
+            <option value="mme">{a.sides.mme}</option>
+            <option value="none">{a.sides.none}</option>
+          </select>
           <button type="submit" className="btn-outline text-ink" aria-label={a.searchButton}>
             <Search className="h-4 w-4" strokeWidth={1.25} aria-hidden="true" />
           </button>
@@ -123,7 +156,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <tbody className="divide-y divide-ink/10">
               {rows.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-10 text-center text-mist-deep">
+                  <td colSpan={8} className="px-4 py-10 text-center text-mist-deep">
                     {a.empty}
                   </td>
                 </tr>
@@ -142,6 +175,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                     <td className="px-4 py-3 tabular-nums">{r.attending ? r.guests : "—"}</td>
                     <td className="px-4 py-3">{r.events ? (ev[r.events] ?? r.events) : "—"}</td>
                     <td className="max-w-xs px-4 py-3 whitespace-pre-line text-graphite">{r.message ?? ""}</td>
+                    <td className="px-4 py-3 whitespace-nowrap">{a.sides[sideKey(r.side)]}</td>
                     <td className="px-4 py-3 whitespace-nowrap text-mist-deep">{dateFmt.format(r.createdAt)}</td>
                   </tr>
                 ))

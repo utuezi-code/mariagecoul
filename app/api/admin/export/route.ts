@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { isAdmin } from "@/lib/admin-auth";
 import { site } from "@/content/site";
+import { parseSide } from "@/lib/sides";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,7 +19,7 @@ export async function GET() {
 
   const rows = await prisma.rsvp.findMany({ orderBy: { createdAt: "desc" } });
   const ev = site.rsvp.form.eventsOptions as Record<string, string>;
-  const header = ["Nom", "Téléphone", "Présence", "Personnes", "Cérémonie(s)", "Message", "Date (Abidjan)"];
+  const header = ["Nom", "Téléphone", "Présence", "Personnes", "Cérémonie(s)", "Message", "Invité de", "Date (Abidjan)"];
   const lines = rows.map((r) =>
     [
       r.name,
@@ -27,6 +28,7 @@ export async function GET() {
       r.guests,
       r.events ? (ev[r.events] ?? r.events) : "",
       r.message ?? "",
+      site.admin.sides[parseSide(r.side) ?? "none"],
       r.createdAt.toISOString().replace("T", " ").slice(0, 16),
     ]
       .map(cell)

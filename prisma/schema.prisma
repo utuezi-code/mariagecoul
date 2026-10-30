@@ -18,6 +18,8 @@ model Rsvp {
   // "ceremonie" | "reception" | "les-deux" (null si absent)
   events     String?
   message    String?
+  // « m » = invité de M. (lien /m), « mme » = invité de Mme (lien /mme), null = lien général
+  side       String?
   createdAt  DateTime @default(now())
 
   @@index([createdAt])

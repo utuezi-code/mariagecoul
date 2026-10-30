@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { resolveSiteState } from "@/lib/date";
 import { rateLimit } from "@/lib/rate-limit";
 import { rsvpSchema } from "@/lib/rsvp";
+import { SIDE_COOKIE, parseSide } from "@/lib/sides";
+import { cookies } from "next/headers";
 
 export const runtime = "nodejs";
 
@@ -28,6 +30,7 @@ export async function POST(req: Request) {
   }
 
   const d = parsed.data;
+  const side = parseSide((await cookies()).get(SIDE_COOKIE)?.value);
   const attending = d.attending === "oui";
   try {
     await prisma.rsvp.create({
@@ -38,6 +41,7 @@ export async function POST(req: Request) {
         guests: attending ? d.guests : 0,
         events: attending ? (d.events ?? null) : null,
         message: d.message || null,
+        side,
       },
     });
   } catch (err) {
