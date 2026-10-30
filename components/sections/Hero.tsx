@@ -2,6 +2,7 @@ import { site, type SiteImage } from "@/content/site";
 import type { Phase } from "@/lib/date";
 import { fr } from "@/lib/typo";
 import { Countdown } from "@/components/ui/Countdown";
+import { PlacesLeft } from "@/components/ui/PlacesLeft";
 import { GeometricPattern } from "@/components/ui/GeometricPattern";
 import { Monogram } from "@/components/ui/Monogram";
 import { OgiveArch } from "@/components/ui/OgiveArch";
@@ -120,6 +121,7 @@ export function Hero({ phase, rsvpOpen, image }: { phase: Phase; rsvpOpen: boole
             <a href="#rsvp" className="btn-gold">
               {hero.cta}
             </a>
+            <PlacesLeft variant="hero" />
           </Reveal>
         )}
 

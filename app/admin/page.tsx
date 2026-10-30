@@ -4,6 +4,7 @@ import { site } from "@/content/site";
 import { isAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 import { parseSide } from "@/lib/sides";
+import { remainingPlaces, type Places } from "@/lib/places";
 import { Monogram } from "@/components/ui/Monogram";
 import { login, logout } from "./actions";
 
@@ -49,7 +50,9 @@ export default async function AdminPage({
   let rows: Awaited<ReturnType<typeof prisma.rsvp.findMany>> = [];
   let all: typeof rows = [];
   let dbError = false;
+  let left: Places | null = null;
   try {
+    left = await remainingPlaces();
     all = await prisma.rsvp.findMany({ orderBy: { createdAt: "desc" } });
     rows = all
       .filter((r) => !query || `${r.name} ${r.phone}`.toLowerCase().includes(query.toLowerCase()))
@@ -71,7 +74,8 @@ export default async function AdminPage({
   const sideKey = (s: string | null) => parseSide(s) ?? "none";
   const bySide = (["m", "mme", "none"] as const).map((k) => {
     const list = yes.filter((r) => sideKey(r.side) === k);
-    return { key: k, label: a.sides[k], yes: list.length, people: sum(list) };
+    const cap = k === "none" ? null : site.rsvp.places.capacity[k];
+    return { key: k, label: a.sides[k], yes: list.length, people: sum(list), left: k === "none" || !left ? null : left[k], cap };
   });
   const ev = site.rsvp.form.eventsOptions as Record<string, string>;
   const dateFmt = new Intl.DateTimeFormat("fr-FR", { timeZone: site.identity.timezone, dateStyle: "short", timeStyle: "short" });
@@ -117,6 +121,11 @@ export default async function AdminPage({
               <dd className="mt-2 font-display text-2xl text-ink">
                 {s.yes} {a.sideStats.yes} · {s.people} {s.people > 1 ? a.sideStats.people : a.sideStats.person}
               </dd>
+              {s.left !== null && (
+                <dd className="mt-1 text-sm text-gold-ink">
+                  {s.left} {a.sideStats.remaining} {s.cap}
+                </dd>
+              )}
             </div>
           ))}
         </dl>

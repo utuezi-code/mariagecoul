@@ -209,6 +209,14 @@ export const site = {
       { label: "+225 07 48 78 92 22", whatsapp: "2250748789222" },
     ] as Contact[],
     contactsTitle: "Info line",
+    /** Places par côté : chaque « Oui » retire son nombre de personnes (dernière réponse par numéro) */
+    places: {
+      capacity: { m: 100, mme: 150 },
+      one: "place restante",
+      many: "places restantes",
+      full: "Complet",
+      sides: { m: "Invités de M.", mme: "Invités de Mme" },
+    },
     whatsappLabel: "WhatsApp",
     form: {
       name: "Nom complet",
@@ -223,6 +231,8 @@ export const site = {
         reception: "La réception",
         "les-deux": "Les deux",
       },
+      side: "Vous êtes invité(e) de",
+      sideOptions: { m: "M. (Aboubakar)", mme: "Mme (Aïchatou)" },
       message: "Message aux mariés",
       optional: "facultatif",
       required: "obligatoire",
@@ -237,6 +247,9 @@ export const site = {
         guests: "Nombre de personnes invalide.",
         events: "Merci de choisir la ou les cérémonies.",
         message: "Votre message est trop long (1 000 caractères maximum).",
+        side: "Merci d'indiquer de qui vous êtes l'invité(e).",
+        notEnough: "Il ne reste que {n} place(s) de ce côté. Merci d'ajuster le nombre de personnes.",
+        full: "Toutes les places de ce côté sont prises. Vous pouvez tout de même répondre « Non ».",
       },
     },
   },
@@ -268,7 +281,7 @@ export const site = {
       reception: "Réception",
     },
     bySide: "Par côté",
-    sideStats: { yes: "oui", person: "personne", people: "personnes" },
+    sideStats: { yes: "oui", person: "personne", people: "personnes", remaining: "places restantes sur" },
     sides: {
       m: "Invités de M. (Aboubakar)",
       mme: "Invités de Mme (Aïchatou)",

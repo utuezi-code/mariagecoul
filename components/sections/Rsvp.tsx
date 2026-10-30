@@ -6,13 +6,16 @@ import { useState, type FormEvent } from "react";
 import { site } from "@/content/site";
 import { whatsappHref } from "@/lib/links";
 import { rsvpSchema, EVENT_CHOICES } from "@/lib/rsvp";
+import { refreshPlaces, usePlaces } from "@/lib/places-client";
+import { SIDES, type Side } from "@/lib/sides";
+import { PlacesLeft } from "@/components/ui/PlacesLeft";
 import { fr } from "@/lib/typo";
 import { GoldDivider } from "@/components/ui/GoldDivider";
 import { Monogram } from "@/components/ui/Monogram";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
-type Errors = Partial<Record<"name" | "phone" | "attending" | "guests" | "events" | "message", string>>;
+type Errors = Partial<Record<"name" | "phone" | "attending" | "side" | "guests" | "events" | "message", string>>;
 
 const f = site.rsvp.form;
 
@@ -94,6 +97,13 @@ export function Rsvp({ open }: { open: boolean }) {
   const { rsvp } = site;
   const [attending, setAttending] = useState("");
   const [events, setEvents] = useState("");
+  const [sideChoice, setSideChoice] = useState("");
+  const places = usePlaces();
+  // Lien général : l'invité indique de qui il est l'invité (les places sont comptées par côté)
+  const needSide = places.status !== "loading" && places.side === null;
+  const side = (places.side ?? (sideChoice || null)) as Side | null;
+  const left = side && places.remaining ? places.remaining[side] : null;
+  const maxGuests = left !== null && left > 0 ? Math.min(rsvp.maxGuests, left) : rsvp.maxGuests;
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error" | "limited">("idle");
 
@@ -106,16 +116,19 @@ export function Rsvp({ open }: { open: boolean }) {
       attending,
       guests: attending === "oui" ? String(fd.get("guests") ?? "1") : "1",
       events: attending === "oui" && events ? events : undefined,
+      side: needSide && sideChoice ? sideChoice : undefined,
       message: String(fd.get("message") ?? ""),
       website: String(fd.get("website") ?? ""),
     };
     const parsed = rsvpSchema.safeParse(raw);
-    if (!parsed.success) {
+    const sideMissing = attending === "oui" && needSide && !sideChoice;
+    if (!parsed.success || sideMissing) {
       const next: Errors = {};
-      for (const issue of parsed.error.issues) {
+      for (const issue of parsed.success ? [] : parsed.error.issues) {
         const k = issue.path[0] as keyof Errors;
         if (k && !next[k]) next[k] = issue.message;
       }
+      if (sideMissing) next.side = f.errors.side;
       setErrors(next);
       const first = Object.keys(next)[0];
       if (first) document.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
@@ -134,11 +147,13 @@ export function Rsvp({ open }: { open: boolean }) {
         const data = (await res.json().catch(() => null)) as { errors?: Errors } | null;
         if (data?.errors) {
           setErrors(data.errors);
+          if (res.status === 409) refreshPlaces();
           return setStatus("idle");
         }
         return setStatus("error");
       }
       setStatus("done");
+      refreshPlaces(); // décompte immédiat
     } catch {
       setStatus("error");
     }
@@ -162,6 +177,7 @@ export function Rsvp({ open }: { open: boolean }) {
             <Reveal delay={0.1}>
               <p className="mx-auto mt-8 max-w-lg text-center leading-relaxed text-graphite">{rsvp.text}</p>
             </Reveal>
+            <PlacesLeft variant="rsvp" />
 
             <AnimatePresence mode="wait">
               {status === "done" ? (
@@ -252,6 +268,19 @@ export function Rsvp({ open }: { open: boolean }) {
                         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                         className="space-y-8 overflow-hidden"
                       >
+                        {needSide && (
+                          <div className="pt-1">
+                            <ChoiceGroup
+                              name="side"
+                              legend={f.side}
+                              value={sideChoice}
+                              onChange={setSideChoice}
+                              error={errors.side}
+                              options={SIDES.map((v) => ({ value: v, label: f.sideOptions[v] }))}
+                            />
+                          </div>
+                        )}
+
                         <div className="pt-1">
                           <Label htmlFor="rsvp-guests">{f.guests}</Label>
                           <select
@@ -262,7 +291,7 @@ export function Rsvp({ open }: { open: boolean }) {
                             aria-invalid={!!errors.guests}
                             aria-describedby={errors.guests ? "guests-error" : undefined}
                           >
-                            {Array.from({ length: rsvp.maxGuests }, (_, i) => i + 1).map((n) => (
+                            {Array.from({ length: maxGuests }, (_, i) => i + 1).map((n) => (
                               <option key={n} value={n}>
                                 {n}
                               </option>

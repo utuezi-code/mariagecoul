@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { site } from "@/content/site";
+import { SIDES } from "@/lib/sides";
 
 const e = site.rsvp.form.errors;
 
@@ -17,6 +18,8 @@ export const rsvpSchema = z
     guests: z.coerce.number({ invalid_type_error: e.guests }).int(e.guests).min(1, e.guests).max(site.rsvp.maxGuests, e.guests),
     events: z.enum(EVENT_CHOICES, { errorMap: () => ({ message: e.events }) }).optional(),
     message: z.string().trim().max(1000, e.message).optional().default(""),
+    // Choisi dans le formulaire seulement si l'invité est arrivé par le lien général
+    side: z.enum(SIDES, { errorMap: () => ({ message: e.side }) }).optional(),
     // Honeypot : doit rester vide
     website: z.string().max(0).optional().default(""),
   })

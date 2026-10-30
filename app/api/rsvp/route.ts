@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { resolveSiteState } from "@/lib/date";
 import { rateLimit } from "@/lib/rate-limit";
 import { rsvpSchema } from "@/lib/rsvp";
+import { normalizePhone, remainingPlaces } from "@/lib/places";
+import { site } from "@/content/site";
 import { SIDE_COOKIE, parseSide } from "@/lib/sides";
 import { cookies } from "next/headers";
 
@@ -30,9 +32,19 @@ export async function POST(req: Request) {
   }
 
   const d = parsed.data;
-  const side = parseSide((await cookies()).get(SIDE_COOKIE)?.value);
+  // Côté : lien /m ou /mme en priorité, sinon le choix fait dans le formulaire
+  const side = parseSide((await cookies()).get(SIDE_COOKIE)?.value) ?? d.side ?? null;
   const attending = d.attending === "oui";
+  const e = site.rsvp.form.errors;
+  if (attending && !side) return NextResponse.json({ ok: false, errors: { side: e.side } }, { status: 400 });
   try {
+    if (attending && side) {
+      const left = (await remainingPlaces(normalizePhone(d.phone)))[side];
+      if (d.guests > left) {
+        const msg = left <= 0 ? e.full : e.notEnough.replace("{n}", String(left));
+        return NextResponse.json({ ok: false, errors: { guests: msg }, remaining: left }, { status: 409 });
+      }
+    }
     await prisma.rsvp.create({
       data: {
         name: d.name,

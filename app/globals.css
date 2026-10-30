@@ -590,3 +590,19 @@ html.intro-lock body {
     transition: none;
   }
 }
+
+/* Compteur de places : petite bascule à chaque changement */
+.places-tick {
+  animation: places-tick 0.6s var(--ease-luxe);
+}
+@keyframes places-tick {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35em);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .places-tick {
+    animation: none;
+  }
+}

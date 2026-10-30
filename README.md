@@ -196,6 +196,18 @@ Chaque réponse RSVP est étiquetée selon le lien ouvert par l'invité (mémori
 
 ---
 
+### Places restantes
+
+Capacité : **100 places pour les invités de M.** et **150 pour les invités de Mme** (`rsvp.places.capacity` dans `content/site.ts`).
+
+- Le site affiche les places restantes sous le bouton « Confirmer votre présence » et dans la section RSVP. Un invité venu par `/m` ou `/mme` voit le compteur de son côté ; par le lien général, il voit les deux et le formulaire lui demande « Vous êtes invité(e) de ».
+- Chaque « Oui » retire son nombre de personnes ; le compteur se met à jour immédiatement après l'envoi, et toutes les 30 secondes pour les autres visiteurs.
+- Si une personne répond plusieurs fois avec le même numéro, seule sa dernière réponse compte (un passage à « Non » libère ses places).
+- Le serveur refuse une réponse qui dépasserait les places restantes ; quand un côté est plein, le site affiche « Complet » (répondre « Non » reste possible).
+- L'admin affiche les places restantes par côté.
+
+---
+
 ## 6. Espace admin : voir les réponses RSVP
 
 - Adresse : `https://<votre-site>/admin`, puis le mot de passe `ADMIN_PASSWORD`.
