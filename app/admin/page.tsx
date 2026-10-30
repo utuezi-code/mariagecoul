@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 import { isAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 import { parseSide } from "@/lib/sides";
-import { remainingPlaces, type Places } from "@/lib/places";
+import { normalizePhone, remainingPlaces, type Places } from "@/lib/places";
 import { Monogram } from "@/components/ui/Monogram";
 import { login, logout } from "./actions";
 
@@ -72,8 +72,16 @@ export default async function AdminPage({
     { label: a.totals.reception, value: sum(yes.filter((r) => r.events === "reception" || r.events === "les-deux")) },
   ];
   const sideKey = (s: string | null) => parseSide(s) ?? "none";
+  // Comme pour les places : seule la dernière réponse de chaque numéro compte
+  const seen = new Set<string>();
+  const latestYes = all.filter((r) => {
+    const key = normalizePhone(r.phone);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return r.attending;
+  });
   const bySide = (["m", "mme", "none"] as const).map((k) => {
-    const list = yes.filter((r) => sideKey(r.side) === k);
+    const list = latestYes.filter((r) => sideKey(r.side) === k);
     const cap = k === "none" ? null : site.rsvp.places.capacity[k];
     return { key: k, label: a.sides[k], yes: list.length, people: sum(list), left: k === "none" || !left ? null : left[k], cap };
   });
